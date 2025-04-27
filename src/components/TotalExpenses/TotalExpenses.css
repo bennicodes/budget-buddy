@@ -1,0 +1,33 @@
+.totalExpenseContainer {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 var(--spacing-medium);
+  gap: var(--spacing-small);
+  border: 1px solid #000;
+  border-radius: 50%;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .totalExpenseContainer {
+    width: 100px;
+    height: 100px;
+    padding: var(--spacing-xl);
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .totalExpenseContainer {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: start;
+    padding: var(--spacing-medium) 0;
+    border: none;
+    font-weight: bold;
+  }
+}

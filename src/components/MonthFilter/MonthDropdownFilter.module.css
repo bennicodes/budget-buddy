@@ -1,0 +1,11 @@
+.dropdownContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: var(--spacing-medium);
+}
+
+.selectDropdown {
+  padding: 2px;
+  border-radius: var(--border-radius-large);
+}
