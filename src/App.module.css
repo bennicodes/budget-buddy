@@ -8,7 +8,6 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  /* padding: var(--spacing-large) 0 0 0; */
 }
 
 .heroContainer {

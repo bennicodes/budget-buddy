@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Outlet } from "react-router-dom";
 import styles from "./App.module.css";
 import CategoryTabs from "./components/CategoryTabs/CategoryTabs";
 import Dashboard from "./components/Dashboard/Dashboard";
@@ -7,6 +8,8 @@ import ExpenseList from "./components/ExpenseList/ExpenseList";
 import Form from "./components/Form/Form";
 import Modal from "./components/Modal/Modal";
 import MonthDropdownFilter from "./components/MonthFilter/MonthDropdownFilter";
+import Navbar from "./components/Navbar/Navbar";
+import LogIn from "./pages/SignIn/SignIn";
 
 function App() {
   // State variables
@@ -20,20 +23,20 @@ function App() {
 
   const hasMounted = useRef(false);
 
-useEffect(() => {
-  const storedExpenses = localStorage.getItem("expenses");
-  if (storedExpenses) {
-    setExpenses(JSON.parse(storedExpenses));
-  }
-}, []);
+  useEffect(() => {
+    const storedExpenses = localStorage.getItem("expenses");
+    if (storedExpenses) {
+      setExpenses(JSON.parse(storedExpenses));
+    }
+  }, []);
 
-useEffect(() => {
-  if (hasMounted.current) {
-    localStorage.setItem("expenses", JSON.stringify(expenses));
-  } else {
-    hasMounted.current = true;
-  }
-}, [expenses]);
+  useEffect(() => {
+    if (hasMounted.current) {
+      localStorage.setItem("expenses", JSON.stringify(expenses));
+    } else {
+      hasMounted.current = true;
+    }
+  }, [expenses]);
 
   const addExpense = (expense) => {
     setExpenses((prev) => [...prev, expense]);
@@ -99,48 +102,13 @@ useEffect(() => {
   };
 
   return (
-    <div className={styles.rootContainer}>
-      <Dashboard openModal={openModal} totalExpenses={totalExpenses} />
-
-      {isModalOpen && (
-        <Modal isOpen={isModalOpen} closeModal={closeModal}>
-          <Form
-            closeModal={closeModal}
-            addExpense={addExpense}
-            editExpense={editExpense}
-            initialExpense={editingExpense}
-          />
-        </Modal>
-      )}
-
-      <CategoryTabs
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        expenses={expenses}
-      />
-
-      <div className={styles.heroContainer}>
-        <MonthDropdownFilter
-          selectedMonth={selectedMonth}
-          setSelectedMonth={setSelectedMonth}
-        />
-        <ExpenseList
-          expenses={filteredExpenses}
-          onEdit={startEditing}
-          openDeleteModal={openDeleteModal}
-        />
-      </div>
-
-      <DeleteModal
-        isOpen={isDeleteModalOpen}
-        confirmDelete={() => {
-          deleteExpense(selectedExpenseId);
-          closeDeleteModal();
-        }}
-        expenseName={expenses.find((exp) => exp.id === selectedExpenseId)?.name}
-        closeModal={closeDeleteModal}
-      />
-    </div>
+    <>
+      <LogIn />
+      <header>{/* <Navbar /> */}</header>
+      <main>
+        <Outlet />
+      </main>
+    </>
   );
 }
 

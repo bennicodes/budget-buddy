@@ -1,0 +1,79 @@
+.signInContainer {
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  background-color: #015e5e;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signInForm {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.signInForm .title {
+  color: var(--secondary-text-color);
+  margin-bottom: var(--spacing-xl);
+}
+.inputsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-large);
+}
+
+.inputGroup {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-small);
+}
+.inputGroup label {
+  color: white;
+}
+
+.inputGroup input {
+  height: 32px;
+  width: 100%;
+  background-color: transparent;
+  color: var(--secondary-text-color);
+  border: none;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.5);
+  padding: 0 var(--spacing-small);
+}
+.inputGroup input:focus {
+  outline: none;
+}
+.inputGroup input::placeholder {
+  color: var(--secondary-text-color);
+  opacity: 0.5;
+}
+
+.forgotPassword,
+.signUp {
+  width: 100%;
+  color: white;
+  padding: var(--spacing-small) 0;
+  font-size: var(--font-size-small);
+}
+.signInButton {
+  min-width: 100%;
+  background-color: var(--secondary-button-color);
+  color: var(--secondary-text-color);
+  margin-top: var(--spacing-medium);
+}
+
+.forgotPassword a,
+.signUp a {
+  color: var(--text-color);
+  text-decoration: underline;
+}
+
+.forgotPassword a:hover,
+.signUp a:hover {
+  color: var(--color-hover);
+  cursor: pointer;
+}

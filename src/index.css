@@ -19,10 +19,12 @@ button {
 /* Variables ---------------- */
 :root {
   /* Color */
-  --color-list-background: #fff;
-  --color-button: #007bff;
+  --background-color: #015e5e;
+  --primary-button-color: #015e5e;
+  --secondary-button-color: #000;
   --color-hover: #6c757d;
-  --color-background: #efeff0;
+  --text-color: #000;
+  --secondary-text-color: #efeff0;
 
   /* Spacing */
   --spacing-small: 0.5rem;
@@ -32,6 +34,7 @@ button {
 
   /* Font */
   --font-family-primary: "Open-Sans-regular", sans-serif;
+  --font-size-small: 0.75rem;
   --font-size-base: 1rem;
   --font-size-medium: 1.2rem;
   --font-size-large: 2rem;
