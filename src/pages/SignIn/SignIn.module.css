@@ -17,12 +17,12 @@
 }
 .signInForm .title {
   color: var(--secondary-text-color);
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: var(--spacing-large);
 }
 .inputsContainer {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-large);
+  gap: var(--spacing-medium);
 }
 
 .inputGroup {
@@ -43,6 +43,7 @@
   border: none;
   border-bottom: 1px solid hsla(0, 0%, 100%, 0.5);
   padding: 0 var(--spacing-small);
+  font-size: var(--font-size-base);
 }
 .inputGroup input:focus {
   outline: none;
@@ -51,29 +52,33 @@
   color: var(--secondary-text-color);
   opacity: 0.5;
 }
-
-.forgotPassword,
-.signUp {
+.signUp,
+.forgotPassword {
   width: 100%;
-  color: white;
-  padding: var(--spacing-small) 0;
-  font-size: var(--font-size-small);
-}
-.signInButton {
-  min-width: 100%;
-  background-color: var(--secondary-button-color);
   color: var(--secondary-text-color);
-  margin-top: var(--spacing-medium);
+  font-size: var(--font-size-small);
+  padding: var(--spacing-small) 0;
 }
-
+.signUp {
+  text-align: center;
+}
+.forgotPassword {
+  text-align: end;
+}
 .forgotPassword a,
 .signUp a {
-  color: var(--text-color);
+  color: var(--secondary-text-color);
   text-decoration: underline;
 }
-
 .forgotPassword a:hover,
 .signUp a:hover {
   color: var(--color-hover);
   cursor: pointer;
+}
+
+.signInButton {
+  min-width: 100%;
+  background-color: var(--secondary-button-color);
+  color: var(--secondary-text-color);
+  margin: var(--spacing-medium) 0;
 }

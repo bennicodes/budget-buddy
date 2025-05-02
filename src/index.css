@@ -25,9 +25,10 @@ button {
   --color-hover: #6c757d;
   --text-color: #000;
   --secondary-text-color: #efeff0;
+  --error-color: #e74c3c;
 
   /* Spacing */
-  --spacing-small: 0.5rem;
+  --spacing-small: 0.8rem;
   --spacing-medium: 1rem;
   --spacing-large: 2rem;
   --spacing-xl: 4rem;

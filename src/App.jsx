@@ -106,7 +106,7 @@ function App() {
       <LogIn />
       <header>{/* <Navbar /> */}</header>
       <main>
-        <Outlet />
+        {/* <Outlet /> */}
       </main>
     </>
   );
