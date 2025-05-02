@@ -89,7 +89,7 @@ const SignIn = () => {
         <Button className={styles.signInButton} type="submit">
           {isLoading ? <Spinner /> : "Sign in"}
         </Button>
-        <p className={styles.signUp}>
+        <p className={styles.signUpLink}>
           <NavLink to="/sign-up">Don´t have an account? Sign up</NavLink>
         </p>
       </form>

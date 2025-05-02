@@ -50,21 +50,21 @@
   color: var(--secondary-text-color);
   opacity: 0.5;
 }
-.signUp,
+.signUpLink,
 .forgotPassword {
   width: 100%;
   color: var(--secondary-text-color);
   font-size: var(--font-size-small);
   padding: var(--spacing-small) 0;
 }
-.signUp {
+.signUpLink {
   text-align: center;
 }
 .forgotPassword {
   text-align: start;
 }
 .forgotPassword a,
-.signUp a {
+.signUpLink a {
   color: var(--secondary-text-color);
   text-decoration: underline;
 }

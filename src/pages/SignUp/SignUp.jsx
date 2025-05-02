@@ -1,6 +1,6 @@
 // import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 // import { auth } from "../../firebaseConfig";
 import Button from "../../components/Button/Button";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
@@ -104,6 +104,9 @@ const SignUp = () => {
 
   return (
     <div className={styles.signUpContainer}>
+      <p className={styles.signInLink}>
+        <NavLink to="/sign-in"> Back to sign in</NavLink>
+      </p>
       <form
         className={styles.signUpForm}
         onSubmit={(e) => handleSignUp(e, formData.email, formData.password)}

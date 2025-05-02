@@ -9,6 +9,17 @@
   justify-content: center;
   align-items: center;
 }
+.signUpContainer .signInLink a {
+  color: var(--secondary-text-color);
+  font-size: var(--font-size-small);
+  text-decoration: underline;
+  position: absolute;
+  top: 24px;
+  left: 24px;
+}
+.signUpContainer .signInLink a:hover {
+  color: var(--color-hover);
+}
 .signUpForm {
   width: 300px;
   display: flex;
