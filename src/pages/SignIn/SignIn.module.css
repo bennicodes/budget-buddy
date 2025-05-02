@@ -2,7 +2,8 @@
   width: 100%;
   min-height: 100vh;
   height: 100%;
-  background-color: #015e5e;
+  background-color: var(--background-color);
+  color: var(--secondary-text-color);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,23 +17,19 @@
   justify-content: center;
 }
 .signInForm .title {
-  color: var(--secondary-text-color);
   margin-bottom: var(--spacing-large);
 }
-.inputsContainer {
+.signInForm .inputsContainer {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-medium);
 }
 
-.inputGroup {
+.signInForm .inputsContainer .inputGroup {
   width: 300px;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-small);
-}
-.inputGroup label {
-  color: white;
 }
 
 .inputGroup input {
@@ -42,11 +39,12 @@
   color: var(--secondary-text-color);
   border: none;
   border-bottom: 1px solid hsla(0, 0%, 100%, 0.5);
-  padding: 0 var(--spacing-small);
+  padding: 0;
   font-size: var(--font-size-base);
 }
 .inputGroup input:focus {
   outline: none;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 1);
 }
 .inputGroup input::placeholder {
   color: var(--secondary-text-color);
@@ -63,7 +61,7 @@
   text-align: center;
 }
 .forgotPassword {
-  text-align: end;
+  text-align: start;
 }
 .forgotPassword a,
 .signUp a {

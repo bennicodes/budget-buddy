@@ -32,7 +32,7 @@ const SignIn = () => {
 
     const { email, password } = formData;
     if (!email || !password) {
-      setError("Please fill in all fields.");
+      setError("Please fill the empty fields.");
       return;
     }
 
@@ -57,16 +57,13 @@ const SignIn = () => {
       <form className={styles.signInForm} onSubmit={handleSignIn}>
         <h1 className={styles.title}>Sign in</h1>
         <div className={styles.inputsContainer}>
-          {error && (
-            <ErrorMessage className={styles.errorMessage} message={error} />
-          )}
           <div className={styles.inputGroup}>
             <label htmlFor="username">Email</label>
             <input
               type="email"
               name="email"
               id="email"
-              placeholder="Enter email here"
+              placeholder="you@example.com"
               value={formData.email}
               onChange={handleChange}
             />
@@ -77,7 +74,7 @@ const SignIn = () => {
               type="password"
               name="password"
               id="password"
-              placeholder="Enter password here"
+              placeholder="Enter password"
               value={formData.password}
               onChange={handleChange}
             />
@@ -86,6 +83,9 @@ const SignIn = () => {
             </p>
           </div>
         </div>
+        {error && (
+          <ErrorMessage className={styles.errorMessage} message={error} />
+        )}
         <Button className={styles.signInButton} type="submit">
           {isLoading ? <Spinner /> : "Sign in"}
         </Button>

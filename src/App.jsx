@@ -9,7 +9,7 @@ import Form from "./components/Form/Form";
 import Modal from "./components/Modal/Modal";
 import MonthDropdownFilter from "./components/MonthFilter/MonthDropdownFilter";
 import Navbar from "./components/Navbar/Navbar";
-import LogIn from "./pages/SignIn/SignIn";
+import SignIn from "./pages/SignIn/SignIn";
 
 function App() {
   // State variables
@@ -103,10 +103,10 @@ function App() {
 
   return (
     <>
-      <LogIn />
+      {/* <SignIn /> */}
       <header>{/* <Navbar /> */}</header>
       <main>
-        {/* <Outlet /> */}
+        <Outlet />
       </main>
     </>
   );

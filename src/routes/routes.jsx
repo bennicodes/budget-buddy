@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 // import elements
 import App from "../App";
-import Home from "../pages/Home";
+import Home from "../pages/Home/Home";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
 import Transactions from "../pages/Transactions/Transactions";
