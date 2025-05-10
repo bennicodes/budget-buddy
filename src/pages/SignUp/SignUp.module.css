@@ -1,46 +1,84 @@
-.signUpContainer {
-  width: 100%;
-  min-height: 100vh;
-  height: 100%;
-  background-color: var(--background-color);
-  color: var(--secondary-text-color);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.signUpContainer .signInLink a {
+.goBackLink {
   color: var(--secondary-text-color);
   font-size: var(--font-size-small);
   text-decoration: underline;
   position: absolute;
-  top: 24px;
+  top: 32px;
   left: 24px;
+  z-index: 1;
 }
-.signUpContainer .signInLink a:hover {
+.goBackLink:hover {
   color: var(--color-hover);
 }
-.signUpForm {
-  width: 300px;
+
+.signUpContainer {
+  background-color: var(--background-color);
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
-.signUpForm .title {
-  margin-bottom: var(--spacing-large);
+
+.formWrapper {
+  background-color: var(--secondary-text-color);
+  color: var(--text-color);
+  width: 75%;
+  max-height: 900;
+  height: auto;
+  border-radius: var(--border-radius-medium);
+  padding: var(--spacing-large);
+  overflow-y: auto;
 }
-.signUpForm .inputsContainer {
+
+.signUpForm {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-medium);
 }
-.inputsContainer .inputGroup {
-  width: 300px;
+
+.formFieldsRow {
+  display: flex;
+  gap: var(--spacing-large);
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.title {
+  margin-bottom: var(--spacing-large);
+}
+
+.formFieldsWrapper {
+  display: flex;
+  gap: var(--spacing-large);
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-large);
+}
+.formFieldsWrapper .formFieldsRow {
+  display: flex;
+  gap: var(--spacing-large);
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.formGroup {
+  flex: 1;
+  min-width: 300px;
+  border: 1px solid var(--background-color);
+  border-radius: var(--border-radius-medium);
+  padding: var(--spacing-large);
+}
+
+.inputGroup {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-small);
+  gap: 4px;
+  padding-bottom: var(--spacing-small);
 }
-.signUpForm .inputsContainer .passwordGroup {
+.signUpForm .passwordGroup {
   gap: 0;
 }
 
@@ -57,31 +95,76 @@
   height: 32px;
   width: 100%;
   background-color: transparent;
-  color: var(--secondary-text-color);
+  color: var(--text-color);
   border: none;
-  border-bottom: 1px solid hsla(0, 0%, 100%, 0.5);
+  border-bottom: 1px solid var(--background-color);
   padding: 0;
   font-size: var(--font-size-base);
 }
 .inputGroup input:focus {
   outline: none;
-  border-bottom: 1px solid hsla(0, 0%, 100%, 1);
+  border-bottom: 2px solid var(--background-color);
 }
 .inputGroup input::placeholder {
-  color: var(--secondary-text-color);
+  color: var(--text-color);
   opacity: 0.5;
 }
 .signUpForm .term {
   margin: var(--spacing-medium) 0;
 }
 
+.term {
+  padding-left: var(--spacing-small);
+}
 .term label {
   padding-left: var(--spacing-small);
 }
 
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .signUpButton {
-  min-width: 100%;
+  min-width: 50%;
   background-color: var(--secondary-button-color);
   color: var(--secondary-text-color);
   margin: var(--spacing-medium) 0;
+}
+
+@media (max-width: 900px) {
+  .formWrapper {
+    max-height: 75vh;
+    overflow-y: auto;
+  }
+  .formFieldsWrapper {
+    flex-direction: column;
+  }
+  .signUpButton {
+    min-width: 90%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .formWrapper {
+    padding: var(--spacing-medium);
+  }
+  .title {
+    font-size: var(--font-size-medium);
+  }
+  .signUpForm {
+    font-size: var(--font-size-small);
+  }
+  .formGroup {
+    min-width: auto;
+    padding: var(--spacing-medium);
+  }
+  .inputGroup input::placeholder {
+    font-size: var(--font-size-small);
+  }
+  .signUpButton {
+    min-width: 100%;
+  }
 }

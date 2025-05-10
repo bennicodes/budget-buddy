@@ -11,17 +11,12 @@ const Navbar = () => {
         Home
       </NavLink>
       <NavLink
-        to="/services"
+        to="/transactions"
         className={({ isActive }) => (isActive ? styles.active : "")}
       >
-        Services
+        Transactions
       </NavLink>
-      <NavLink
-        to="/team"
-        className={({ isActive }) => (isActive ? styles.active : "")}
-      >
-        Team
-      </NavLink>
+
       <NavLink
         to="/contact"
         className={({ isActive }) => (isActive ? styles.active : "")}

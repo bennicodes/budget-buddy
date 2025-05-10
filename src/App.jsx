@@ -2,15 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
 import styles from "./App.module.css";
 // Import components
-import CategoryTabs from "./components/CategoryTabs/CategoryTabs";
-import Dashboard from "./components/Dashboard/Dashboard";
-import DeleteModal from "./components/DeleteModal/DeleteModal";
-import ExpenseList from "./components/ExpenseList/ExpenseList";
-import Form from "./components/Form/Form";
-import Modal from "./components/Modal/Modal";
-import MonthDropdownFilter from "./components/MonthFilter/MonthDropdownFilter";
 import Navbar from "./components/Navbar/Navbar";
-import SignIn from "./pages/SignIn/SignIn";
 
 function App() {
   // State variables
@@ -104,7 +96,9 @@ function App() {
 
   return (
     <>
-      <header>{/* <Navbar /> */}</header>
+      <header>
+        {/* <Navbar /> */}
+      </header>
       <main>
         <Outlet />
       </main>
