@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 .env
 
-/src/firebaseConfig.js
+firebaseConfig.js
