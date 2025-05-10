@@ -3,7 +3,7 @@ body {
   min-width: 340px;
 }
 .rootContainer {
-  background-color: var(--color-background);
+  background-color: var(--background-color);
   width: 100%;
   min-height: 100vh;
   display: flex;

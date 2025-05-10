@@ -1,7 +1,9 @@
 // import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { auth } from "../../firebaseConfig";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../../components/Button/Button";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Spinner from "../../components/Spinner/Spinner";
@@ -105,7 +107,9 @@ const SignUp = () => {
   return (
     <div className={styles.signUpContainer}>
       <p className={styles.signInLink}>
-        <NavLink to="/sign-in"> Back to sign in</NavLink>
+        <Link to="/sign-in">
+          <FontAwesomeIcon icon={faArrowLeft} /> Back to sign in
+        </Link>
       </p>
       <form
         className={styles.signUpForm}

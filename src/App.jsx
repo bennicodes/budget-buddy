@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
 import styles from "./App.module.css";
+// Import components
 import CategoryTabs from "./components/CategoryTabs/CategoryTabs";
 import Dashboard from "./components/Dashboard/Dashboard";
 import DeleteModal from "./components/DeleteModal/DeleteModal";
@@ -103,7 +104,6 @@ function App() {
 
   return (
     <>
-      {/* <SignIn /> */}
       <header>{/* <Navbar /> */}</header>
       <main>
         <Outlet />
