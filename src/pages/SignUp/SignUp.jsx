@@ -1,11 +1,12 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { addDoc, doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Spinner from "../../components/Spinner/Spinner";
-import { auth } from "../../firebaseConfig";
+import { auth, database } from "../../firebaseConfig";
 import { useAuth } from "../../hooks/useAuth";
 import { useSignUpValidation } from "../../hooks/useSignUpValidation";
 import styles from "./SignUp.module.css";
@@ -81,7 +82,7 @@ const SignUp = () => {
     }));
   };
 
-  const handleSignUp = async (e, email, password) => {
+  const handleSubmit = async (e, email, password) => {
     e.preventDefault();
     setPasswordError("");
 
@@ -109,10 +110,21 @@ const SignUp = () => {
         signUpFormData.email,
         signUpFormData.password
       );
+      const user = userCredential.user;
       console.log("User signed up successfully:", userCredential.user);
 
+      await setDoc(doc(database, "users", user.uid), {
+        uid: user.uid,
+        firstname: signUpFormData.firstname,
+        lastname: signUpFormData.lastname,
+        email: signUpFormData.email,
+        dateOfBirth: signUpFormData.dateOfBirth || "",
+        createdAt: serverTimestamp(),
+      });
       navigate("/");
+      console.log("User data saved to Firestore");
 
+      // Reset form
       setSignUpFormData({
         firstname: "",
         lastname: "",
@@ -123,13 +135,11 @@ const SignUp = () => {
         terms: false,
       });
     } catch (error) {
-      setErrors(error.message);
-      console.log("Error signing up:", error.message);
+      console.log("Error creating user:", error.message);
     } finally {
       setIsLoading(false);
     }
   };
-
   return (
     <>
       <Link to="/sign-in" className={styles.goBackLink}>
@@ -138,12 +148,7 @@ const SignUp = () => {
       <div className={styles.signUpContainer}>
         <div className={styles.formWrapper}>
           <h1 className={styles.title}>Sign Up</h1>
-          <form
-            className={styles.signUpForm}
-            onSubmit={(e) =>
-              handleSignUp(e, signUpFormData.email, signUpFormData.password)
-            }
-          >
+          <form className={styles.signUpForm} onSubmit={handleSubmit}>
             <div className={styles.formFieldsRow}>
               <fieldset className={styles.formGroup}>
                 <legend>Personal Information</legend>
@@ -262,12 +267,11 @@ const SignUp = () => {
               <label htmlFor="terms">I agree to the terms and conditions</label>
             </div>
             {errors?.terms && <ErrorMessage message={errors.terms} />}
+            {signUpErrors && (
+              <ErrorMessage message={signUpErrors} className={styles.error} />
+            )}
             <div className={styles.buttonContainer}>
-              <Button
-                className={styles.signUpButton}
-                type="submit"
-                onClick={handleSignUp}
-              >
+              <Button className={styles.signUpButton} type="submit">
                 {isLoading ? <Spinner /> : "Sign up"}
               </Button>
             </div>
