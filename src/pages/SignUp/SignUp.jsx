@@ -121,7 +121,7 @@ const SignUp = () => {
         dateOfBirth: signUpFormData.dateOfBirth || "",
         createdAt: serverTimestamp(),
       });
-      navigate("/");
+      navigate("/verify-email");
       console.log("User data saved to Firestore");
 
       // Reset form

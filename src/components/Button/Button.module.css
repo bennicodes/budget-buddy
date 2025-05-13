@@ -1,17 +1,16 @@
-.addButton {
-  max-width: 150px;
+.button {
   height: 32px;
-  background-color: var(--color-button);
-  color: var(--color-background);
+  background-color: var(--primary-button-color);
+  color: var(--secondary-text-color);
   border: none;
   border-radius: var(--border-radius-medium);
 }
 
-.addButton:hover {
+.button:hover {
   transition: 0.3s ease;
   background-color: var(--color-hover);
 }
-.addButton:active {
+.button:active {
   transition: 0s;
   transform: translateY(2px);
 }

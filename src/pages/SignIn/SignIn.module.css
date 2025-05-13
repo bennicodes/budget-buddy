@@ -74,7 +74,7 @@
   cursor: pointer;
 }
 
-.signInButton {
+.signInForm .signInButton {
   min-width: 100%;
   background-color: var(--secondary-button-color);
   color: var(--secondary-text-color);
