@@ -22,18 +22,13 @@ export const useSignUpValidation = () => {
 
     if (!values.password.trim()) {
       newErrors.password = "Password is required";
-    } else if (values.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters long";
-    } else if (!passwordRegex.test(values.password.trim())) {
-      newErrors.password =
-        "Password must contain at least one uppercase, lowercase, number, and special character";
-    } else if (values.password.trim() !== values.confirmPassword.trim()) {
-      newErrors.password = "Passwords do not match";
-      newErrors.confirmPassword = "Passwords do not match";
     }
 
     if (!values.confirmPassword.trim()) {
-      newErrors.confirmPassword = "Password confirmation is required";
+      newErrors.confirmPassword = "Please re-enter your password";
+    }
+    if (!values.terms) {
+      newErrors.terms = "You must agree to the terms and conditions";
     }
 
     setErrors(newErrors);

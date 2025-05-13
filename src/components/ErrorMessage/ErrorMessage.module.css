@@ -5,10 +5,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  padding-top: var(--spacing-medium);
+  padding-top: 5px;
 }
 
 .errorText {
   font-weight: bold;
+  font-size: var(--font-size-small);
   color: var(--error-color);
 }

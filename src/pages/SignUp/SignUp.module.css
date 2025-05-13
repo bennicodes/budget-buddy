@@ -113,9 +113,6 @@
   margin: var(--spacing-medium) 0;
 }
 
-.term {
-  padding-left: var(--spacing-small);
-}
 .term label {
   padding-left: var(--spacing-small);
 }

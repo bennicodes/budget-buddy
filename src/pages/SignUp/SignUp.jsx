@@ -7,10 +7,11 @@ import Button from "../../components/Button/Button";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Spinner from "../../components/Spinner/Spinner";
 import { auth } from "../../firebaseConfig";
+import { useSignUpValidation } from "../../hooks/useSignUpValidation";
 import styles from "./SignUp.module.css";
 
 const SignUp = () => {
-  // Declaring state variables
+  // Declare useState variables
   const [signUpFormData, setSignUpFormData] = useState({
     firstname: "",
     lastname: "",
@@ -20,17 +21,18 @@ const SignUp = () => {
     confirmPassword: "",
     terms: false,
   });
-  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [touchedPasswordInput, setTouchedPasswordInput] = useState({
     password: false,
+    confirmPassword: false,
   });
-  const [passwordError, setPasswordError] = useState("");
 
-  // For redirecting
+  const [passwordError, setPasswordError] = useState("");
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{8,}$/;
+  const { validate, errors } = useSignUpValidation();
+
   const navigate = useNavigate();
 
-  // Retrieving input values
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSignUpFormData((prevData) => ({
@@ -40,18 +42,34 @@ const SignUp = () => {
   };
 
   const handleBlur = (e) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
+    setTouchedPasswordInput((prev) => ({ ...prev, [name]: true }));
 
-    setTouchedPasswordInput((prev) => ({ ...prev, [name]: value }));
-
+    // Password Validation
     if (name === "password") {
-      if (value.length < 6) {
-        setPasswordError("Password must be at least 6 characters.");
+      if (signUpFormData.password.length < 8) {
+        setPasswordError("Password must be at least 8 characters long");
+      } else if (!passwordRegex.test(signUpFormData.password.trim())) {
+        setPasswordError(
+          "Password must contain at least one uppercase, lowercase, number, and special character"
+        );
       } else {
         setPasswordError("");
       }
     }
+
+    // Confirm Password Validation
+    if (
+      name === "confirmPassword" &&
+      signUpFormData.confirmPassword &&
+      signUpFormData.password !== signUpFormData.confirmPassword
+    ) {
+      setPasswordError("Passwords do not match");
+    } else if (name === "confirmPassword") {
+      setPasswordError("");
+    }
   };
+
   const handleCheckboxChange = (e) => {
     const { name, checked } = e.target;
     setSignUpFormData((prevData) => ({
@@ -62,46 +80,52 @@ const SignUp = () => {
 
   const handleSignUp = async (e, email, password) => {
     e.preventDefault();
-    setError(null);
-    if (
-      !signUpFormData.firstname.trim() ||
-      !signUpFormData.lastname.trim() ||
-      !signUpFormData.email.trim() ||
-      !signUpFormData.password.trim() ||
-      !signUpFormData.confirmPassword.trim()
-    ) {
-      setError("Please fill the empty fields.");
+    setPasswordError("");
+
+    const isValid = validate(signUpFormData);
+    if (!isValid) {
+      console.log("Form is invalid");
       return;
-    } else if (signUpFormData.password !== signUpFormData.confirmPassword) {
-      setError("Passwords do not match");
+    }
+    // Password Validation
+    if (!passwordRegex.test(signUpFormData.password)) {
+      setPasswordError(
+        "Password must contain at least one uppercase, lowercase, number, and special character"
+      );
       return;
-    } else if (!signUpFormData.terms) {
-      setError("You must agree to the terms and conditions.");
+    }
+    if (signUpFormData.password !== signUpFormData.confirmPassword) {
+      setPasswordError("Passwords do not match");
       return;
     }
 
     try {
-      //   const userCredential = await createUserWithEmailAndPassword(
-      //     auth,
-      //     email,
-      //     password
-      //   );
-      //   const user = userCredential.user;
-      //   console.log("User signed up successfully:", user);
+      setIsLoading(true);
+
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      console.log("User signed up successfully:", user);
 
       navigate("/");
 
-      // Reset form
       setSignUpFormData({
         firstname: "",
         lastname: "",
+        dateOfBirth: "",
         email: "",
         password: "",
         confirmPassword: "",
         terms: false,
       });
     } catch (error) {
-      setError(error.message);
+      setErrors(error.message);
+      console.log("Error signing up:", error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -132,8 +156,10 @@ const SignUp = () => {
                     value={signUpFormData.firstname}
                     placeholder="John"
                   />
+                  {errors?.firstname && (
+                    <ErrorMessage message={errors.firstname} />
+                  )}
                 </div>
-                {/* ------------- */}
                 <div className={styles.inputGroup}>
                   <label htmlFor="lastname">Last name</label>
                   <input
@@ -144,8 +170,10 @@ const SignUp = () => {
                     value={signUpFormData.lastname}
                     placeholder="Smith"
                   />
+                  {errors?.lastname && (
+                    <ErrorMessage message={errors.lastname} />
+                  )}
                 </div>
-                {/* ------------- */}
                 <div className={styles.inputGroup}>
                   <label htmlFor="dateOfBirth">Date of birth</label>
                   <input
@@ -155,9 +183,11 @@ const SignUp = () => {
                     onChange={handleChange}
                     value={signUpFormData.dateOfBirth}
                   />
+                  {errors?.dateOfBirth && (
+                    <ErrorMessage message={errors.dateOfBirth} />
+                  )}
                 </div>
               </fieldset>
-              {/* ------------- */}
               <fieldset className={styles.formGroup}>
                 <legend>Account Information</legend>
                 <div className={styles.inputGroup}>
@@ -170,11 +200,10 @@ const SignUp = () => {
                     value={signUpFormData.email}
                     placeholder="you@example.com"
                   />
+                  {errors?.email && <ErrorMessage message={errors.email} />}
                 </div>
-                {/* ------------- */}
                 <div className={`${styles.inputGroup} ${styles.passwordGroup}`}>
                   <label htmlFor="password">Password</label>
-
                   <input
                     type="password"
                     name="password"
@@ -192,8 +221,11 @@ const SignUp = () => {
                     />
                   ) : (
                     <p className={styles.passwordDescription}>
-                      Must be at least 6 characters
+                      Must be at least 8 characters
                     </p>
+                  )}
+                  {errors?.password && (
+                    <ErrorMessage message={errors.password} />
                   )}
                 </div>
                 <div className={styles.inputGroup}>
@@ -204,13 +236,20 @@ const SignUp = () => {
                     id="confirm-password"
                     min={6}
                     onChange={handleChange}
+                    onBlur={handleBlur}
                     value={signUpFormData.confirmPassword}
                     placeholder="Re-enter your password"
                   />
+                  {touchedPasswordInput.confirmPassword &&
+                    passwordError === "Passwords do not match" && (
+                      <ErrorMessage message={passwordError} />
+                    )}
+                  {errors?.confirmPassword && (
+                    <ErrorMessage message={errors.confirmPassword} />
+                  )}
                 </div>
               </fieldset>
             </div>
-            {/* ------------- */}
             <div className={styles.term}>
               <input
                 type="checkbox"
@@ -221,15 +260,13 @@ const SignUp = () => {
               />
               <label htmlFor="terms">I agree to the terms and conditions</label>
             </div>
-            {error && (
-              <ErrorMessage
-                className={styles.errorMessage}
-                message={error}
-              ></ErrorMessage>
-            )}
-            {/* ------------- */}
+            {errors?.terms && <ErrorMessage message={errors.terms} />}
             <div className={styles.buttonContainer}>
-              <Button className={styles.signUpButton} type="submit">
+              <Button
+                className={styles.signUpButton}
+                type="submit"
+                onClick={handleSignUp}
+              >
                 {isLoading ? <Spinner /> : "Sign up"}
               </Button>
             </div>
