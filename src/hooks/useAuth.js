@@ -24,7 +24,14 @@ export const useAuth = () => {
       setUser(user);
       return userCredentials;
     } catch (error) {
-      setSignUpErrors(error.message);
+      console.error("Error signing up:", error);
+      if (error.code === "auth/email-already-in-use") {
+        setSignUpErrors(
+          "This email is already registered. Please sign in or use another email."
+        );
+      } else {
+        setSignUpErrors("An unexpected error occurred. Please try again.");
+      }
       throw error;
     }
   };

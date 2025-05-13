@@ -268,7 +268,7 @@ const SignUp = () => {
             </div>
             {errors?.terms && <ErrorMessage message={errors.terms} />}
             {signUpErrors && (
-              <ErrorMessage message={signUpErrors} className={styles.error} />
+              <ErrorMessage message={signUpErrors} className={styles.signUpErrorMessage} />
             )}
             <div className={styles.buttonContainer}>
               <Button className={styles.signUpButton} type="submit">

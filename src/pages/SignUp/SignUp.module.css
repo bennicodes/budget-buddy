@@ -117,6 +117,13 @@
   padding-left: var(--spacing-small);
 }
 
+.signUpErrorMessage {
+  color: var(--error-color);
+  font-size: var(--font-size-base);
+  padding: 0;
+  margin: 0 auto;
+}
+
 .buttonContainer {
   width: 100%;
   display: flex;
@@ -159,6 +166,9 @@
     padding: var(--spacing-medium);
   }
   .inputGroup input::placeholder {
+    font-size: var(--font-size-small);
+  }
+  .signUpErrorMessage {
     font-size: var(--font-size-small);
   }
   .signUpButton {
