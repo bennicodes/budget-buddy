@@ -1,11 +1,11 @@
 import styles from "./Spinner.module.css";
 
-const Spinner = () => {
-  return <div className={styles.spinnerContainer}>
-    <div className={`${styles.spinnerCircle} ${styles.spinnerClassName}`}>
-
+const Spinner = ({ wrapperClassName, spinnerClassName }) => {
+  return (
+    <div className={`${styles.spinnerWrapper} ${wrapperClassName}`}>
+      <div className={`${styles.spinnerCircle} ${spinnerClassName}`}></div>
     </div>
-  </div>;
+  );
 };
 
 export default Spinner;

@@ -51,6 +51,8 @@ const SignIn = () => {
     } catch (error) {
       setError("Invalid email or password.");
       console.log("Error signing in:", error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -60,7 +62,7 @@ const SignIn = () => {
         <h1 className={styles.title}>Sign in</h1>
         <div className={styles.inputsContainer}>
           <div className={styles.inputGroup}>
-            <label htmlFor="username">Email</label>
+            <label htmlFor="email">Email</label>
             <input
               type="email"
               name="email"
@@ -69,6 +71,12 @@ const SignIn = () => {
               value={signInFormData.email}
               onChange={handleInputChange}
             />
+            {signInErrors.email && (
+              <ErrorMessage
+                className={styles.signInErrorMessage}
+                message={signInErrors.email}
+              />
+            )}
           </div>
           <div className={styles.inputGroup}>
             <label htmlFor="password">Password</label>
@@ -80,17 +88,31 @@ const SignIn = () => {
               value={signInFormData.password}
               onChange={handleInputChange}
             />
-            <p className={styles.forgotPassword}>
-              <NavLink to="forgot-password">Forgot your password?</NavLink>
-            </p>
+            {signInErrors.password && (
+              <ErrorMessage
+                className={styles.signInErrorMessage}
+                message={signInErrors.password}
+              />
+            )}
           </div>
         </div>
         {error && (
-          <ErrorMessage className={styles.errorMessage} message={error} />
+          <ErrorMessage className={styles.signInErrorMessage} message={error} />
         )}
         <Button className={styles.signInButton} type="submit">
-          {isLoading ? <Spinner /> : "Sign in"}
+          {/* Show spinner when loading */}
+          {isLoading ? (
+            <Spinner
+              wrapperClassName={styles.spinnerWrapper}
+              spinnerClassName={styles.spinnerCircle}
+            />
+          ) : (
+            "Sign in"
+          )}
         </Button>
+        <p className={styles.forgotPassword}>
+          <NavLink to="forgot-password">Forgot your password?</NavLink>
+        </p>
         <p className={styles.signUpLink}>
           <NavLink to="/sign-up">Don´t have an account? Sign up</NavLink>
         </p>

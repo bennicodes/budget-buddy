@@ -55,20 +55,16 @@
   color: var(--secondary-text-color);
   font-size: var(--font-size-small);
   padding: var(--spacing-small) 0;
-}
-.signUpLink {
-  text-align: center;
-}
-.forgotPassword {
   text-align: start;
 }
+
 .forgotPassword a,
 .signUpLink a {
   color: var(--secondary-text-color);
   text-decoration: underline;
 }
 .forgotPassword a:hover,
-.signUp a:hover {
+.signUpLink a:hover {
   color: var(--color-hover);
   cursor: pointer;
 }
@@ -78,4 +74,51 @@
   background-color: var(--primary-button-color);
   color: var(--secondary-text-color);
   margin: var(--spacing-medium) 0;
+}
+
+.signInForm .signInErrorMessage {
+  color: orange;
+  font-size: var(--font-size-small);
+  animation: shake 0.4s ease-in-out;
+}
+
+.spinnerWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signInForm .signInButton .spinnerCircle {
+  width: 24px;
+  height: 24px;
+  border: 0.25rem solid transparent;
+  border-top: 0.25rem solid var(--secondary-background-color);
+  border-radius: 50%;
+}
+
+/* Animations */
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  animation: shake 0.4s ease-in-out;
 }
