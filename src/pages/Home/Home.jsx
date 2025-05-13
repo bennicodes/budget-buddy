@@ -1,3 +1,4 @@
+import TotalExpenses from "../../components/TotalExpenses/TotalExpenses";
 import Transactions from "../Transactions/Transactions";
 import styles from "./Home.module.css";
 
@@ -5,13 +6,12 @@ const Home = () => {
   return (
     <div className={styles.rootContainer}>
       <header className={styles.header}>
-        <h1>Budget Buddy</h1>
-        Navbar
+        <TotalExpenses />
       </header>
       <main>
-        <div className={styles.transactionsContainer}>
+        {/* <div className={styles.transactionsContainer}>
           <Transactions />
-        </div>
+        </div> */}
       </main>
     </div>
   );

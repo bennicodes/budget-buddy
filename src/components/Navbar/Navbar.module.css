@@ -1,17 +1,43 @@
 .navbar {
   width: 100%;
-  padding: 1rem;
+  padding: var(--spacing-medium) var(--spacing-large);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 1rem;
-  background-color: lightblue;
+  background-color: var(--primary-background-color);
+  border-bottom: 1px solid var(--secondary-text-color);
+}
+.navbarTitle {
+  color: var(--secondary-text-color);
+  flex-grow: 1;
+  font-size: var(--font-size-large);
+}
+.navbarTitle .titleLink:hover {
+  color: var(--secondary-text-color);
 }
 
+.navLinkContainer {
+  display: flex;
+  flex-basis: 33%;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navLinkContainer,
 a {
-  color: blue;
+  color: var(--secondary-text-color);
   text-decoration: none;
+}
+.navLinkContainer,
+a:hover {
+  color: var(--color-hover);
 }
 
 .navbar a.active {
   text-decoration: underline;
+}
+
+.profileIconContainer {
+  color: var(--secondary-text-color);
 }

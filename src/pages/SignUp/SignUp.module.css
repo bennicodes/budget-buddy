@@ -3,7 +3,7 @@
   font-size: var(--font-size-small);
   text-decoration: underline;
   position: absolute;
-  top: 32px;
+  top: 128px;
   left: 24px;
   z-index: 1;
 }
@@ -12,23 +12,23 @@
 }
 
 .signUpContainer {
-  background-color: var(--background-color);
+  background-color: var(--primary-background-color);
   width: 100%;
-  min-height: 100vh;
-  height: 100%;
+  flex-grow: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .formWrapper {
-  background-color: var(--secondary-text-color);
+  background-color: var(--secondary-background-color);
   color: var(--text-color);
   width: 75%;
   max-height: 900;
   height: auto;
   border-radius: var(--border-radius-medium);
   padding: var(--spacing-large);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
 }
 
@@ -66,7 +66,7 @@
 .formGroup {
   flex: 1;
   min-width: 300px;
-  border: 1px solid var(--background-color);
+  border: 2px solid var(--primary-background-color);
   border-radius: var(--border-radius-medium);
   padding: var(--spacing-large);
 }
@@ -97,13 +97,13 @@
   background-color: transparent;
   color: var(--text-color);
   border: none;
-  border-bottom: 1px solid var(--background-color);
+  border-bottom: 1px solid var(--primary-background-color);
   padding: 0;
   font-size: var(--font-size-base);
 }
 .inputGroup input:focus {
   outline: none;
-  border-bottom: 2px solid var(--background-color);
+  border-bottom: 2px solid var(--primary-background-color);
 }
 .inputGroup input::placeholder {
   color: var(--text-color);
@@ -133,7 +133,7 @@
 
 .signUpButton {
   min-width: 50%;
-  background-color: var(--secondary-button-color);
+  background-color: var(--primary-button-color);
   color: var(--secondary-text-color);
   margin: var(--spacing-medium) 0;
 }

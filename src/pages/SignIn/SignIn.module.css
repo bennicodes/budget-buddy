@@ -1,8 +1,7 @@
-.signInContainer {
+.signInWrapper {
   width: 100%;
-  min-height: 100vh;
-  height: 100%;
-  background-color: var(--background-color);
+  flex-grow: 1;
+  background-color: var(--primary-background-color);
   color: var(--secondary-text-color);
   display: flex;
   flex-direction: column;
@@ -76,7 +75,7 @@
 
 .signInForm .signInButton {
   min-width: 100%;
-  background-color: var(--secondary-button-color);
+  background-color: var(--primary-button-color);
   color: var(--secondary-text-color);
   margin: var(--spacing-medium) 0;
 }

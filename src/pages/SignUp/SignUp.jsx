@@ -214,7 +214,7 @@ const SignUp = () => {
                     type="password"
                     name="password"
                     id="password"
-                    min={6}
+                    min={8}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={signUpFormData.password}
@@ -240,7 +240,7 @@ const SignUp = () => {
                     type="password"
                     name="confirmPassword"
                     id="confirm-password"
-                    min={6}
+                    min={8}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={signUpFormData.confirmPassword}
@@ -268,7 +268,10 @@ const SignUp = () => {
             </div>
             {errors?.terms && <ErrorMessage message={errors.terms} />}
             {signUpErrors && (
-              <ErrorMessage message={signUpErrors} className={styles.signUpErrorMessage} />
+              <ErrorMessage
+                message={signUpErrors}
+                className={styles.signUpErrorMessage}
+              />
             )}
             <div className={styles.buttonContainer}>
               <Button className={styles.signUpButton} type="submit">

@@ -95,14 +95,14 @@ function App() {
   };
 
   return (
-    <>
-      <header>
-        {/* <Navbar /> */}
+    <div className={styles.rootContainer}>
+      <header className={styles.header}>
+        <Navbar />
       </header>
-      <main>
+      <main className={styles.mainContainer}>
         <Outlet />
       </main>
-    </>
+    </div>
   );
 }
 

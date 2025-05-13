@@ -1,11 +1,10 @@
-import React from "react";
-import "./TotalExpenses.css";
+import styles from "./TotalExpenses.module.css";
 
 const TotalExpenses = ({ total }) => {
   return (
-    <div className="totalExpenseContainer">
-      <h4>Total Expenses:</h4>
-      <span className="totalAmount">${total.toFixed(2)}</span>
+    <div className={styles.totalExpensesWrapper}>
+      <h3>Total Expenses:</h3>
+      <span className={styles.totalAmount}>$2000</span>
     </div>
   );
 };

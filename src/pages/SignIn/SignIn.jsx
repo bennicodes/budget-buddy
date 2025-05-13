@@ -1,51 +1,53 @@
-import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./SignIn.module.css";
 // Import components
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
 import Button from "../../components/Button/Button";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Spinner from "../../components/Spinner/Spinner";
+import { auth } from "../../firebaseConfig";
+import useSignInValidation from "../../hooks/useSignInValidation";
 
 const SignIn = () => {
   // State variables
-  const [formData, setFormData] = useState({
+  const [signInFormData, setSignInFormData] = useState({
     email: "",
     password: "",
   });
-  const [error, setError] = useState(null);
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetMessage, setResetMessage] = useState("");
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  // Destructure validation
+  const { validateSignIn, signInErrors } = useSignInValidation();
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  // Retrieve form values
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    setError(null);
+    setSignInFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    setError(null);
-
-    const { email, password } = formData;
-    if (!email || !password) {
-      setError("Please fill the empty fields.");
+    if (!validateSignIn(signInFormData)) {
+      console.log("Form invalid");
       return;
     }
-
     try {
       setIsLoading(true);
-      // const userCredential = await signInWithEmailAndPassword(
-      //   auth,
-      //   formData.email,
-      //   formData.password
-      // );
-      // const user = userCredential.user;
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        signInFormData.email,
+        signInFormData.password
+      );
+      const user = userCredential.user;
       navigate("/");
-      console.log("User successfully signed in:");
+      console.log("User successfully signed in:", user);
     } catch (error) {
       setError("Invalid email or password.");
       console.log("Error signing in:", error.message);
@@ -53,8 +55,8 @@ const SignIn = () => {
   };
 
   return (
-    <div className={styles.signInContainer}>
-      <form className={styles.signInForm} onSubmit={handleSignIn}>
+    <div className={styles.signInWrapper}>
+      <form className={styles.signInForm} onSubmit={handleSignIn} noValidate>
         <h1 className={styles.title}>Sign in</h1>
         <div className={styles.inputsContainer}>
           <div className={styles.inputGroup}>
@@ -64,8 +66,8 @@ const SignIn = () => {
               name="email"
               id="email"
               placeholder="you@example.com"
-              value={formData.email}
-              onChange={handleChange}
+              value={signInFormData.email}
+              onChange={handleInputChange}
             />
           </div>
           <div className={styles.inputGroup}>
@@ -75,8 +77,8 @@ const SignIn = () => {
               name="password"
               id="password"
               placeholder="Enter password"
-              value={formData.password}
-              onChange={handleChange}
+              value={signInFormData.password}
+              onChange={handleInputChange}
             />
             <p className={styles.forgotPassword}>
               <NavLink to="forgot-password">Forgot your password?</NavLink>

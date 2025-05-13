@@ -1,7 +1,7 @@
 /* Import ------------ */
 @font-face {
   font-family: Open-Sans-regular;
-  src: url(./assets/Fonts/OpenSans-Regular.ttf);
+  src: url(/Fonts/OpenSans-Regular.ttf);
 }
 
 /* Reset ---------------- */
@@ -19,9 +19,10 @@ button {
 /* Variables ---------------- */
 :root {
   /* Color */
-  --background-color: #015e5e;
-  --primary-button-color: #015e5e;
-  --secondary-button-color: #000;
+  --primary-background-color: #015e5e;
+  --secondary-background-color: #efeff0;
+  --primary-button-color: #000;
+  --secondary-button-color: #015e5e;
   --color-hover: #6c757d;
   --text-color: #000;
   --secondary-text-color: #efeff0;
@@ -47,7 +48,7 @@ button {
 }
 
 /* Media queries ------------------- */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   #root {
     min-width: 340px;
   }
@@ -63,4 +64,4 @@ button {
   .expenseTable {
     padding: var(--spacing-medium);
   }
-}
+} */
