@@ -11,20 +11,22 @@ export const useAuth = () => {
 
   const signUp = async (email, password) => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(
+      const userCredentials = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      console.log("userCredential", userCredential);
-      const user = userCredential.user;
-      sendEmailVerification(userCredential.user);
+      console.log("userCredentials", userCredentials);
+
+      const user = userCredentials.user;
+      sendEmailVerification(userCredentials.user);
       setSignUpErrors(null);
       setUser(user);
+      return userCredentials;
     } catch (error) {
-      console.error("Error signing up:", error);
       setSignUpErrors(error.message);
+      throw error;
     }
   };
-  return { signUp, user, signUpErrors };
+  return { user, signUp, signUpErrors };
 };

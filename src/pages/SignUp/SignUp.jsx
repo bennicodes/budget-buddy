@@ -1,12 +1,12 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Spinner from "../../components/Spinner/Spinner";
 import { auth } from "../../firebaseConfig";
+import { useAuth } from "../../hooks/useAuth";
 import { useSignUpValidation } from "../../hooks/useSignUpValidation";
 import styles from "./SignUp.module.css";
 
@@ -26,10 +26,13 @@ const SignUp = () => {
     password: false,
     confirmPassword: false,
   });
-
   const [passwordError, setPasswordError] = useState("");
-  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{8,}$/;
+
+  // Declare custom hooks
   const { validate, errors } = useSignUpValidation();
+  const { signUp, signUpErrors, user } = useAuth();
+
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{8,}$/;
 
   const navigate = useNavigate();
 
@@ -98,17 +101,15 @@ const SignUp = () => {
       setPasswordError("Passwords do not match");
       return;
     }
-
+    // Create user with email and password
     try {
       setIsLoading(true);
 
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
+      const userCredential = await signUp(
+        signUpFormData.email,
+        signUpFormData.password
       );
-      const user = userCredential.user;
-      console.log("User signed up successfully:", user);
+      console.log("User signed up successfully:", userCredential.user);
 
       navigate("/");
 
