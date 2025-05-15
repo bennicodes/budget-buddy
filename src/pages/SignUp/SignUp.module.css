@@ -110,7 +110,7 @@
   opacity: 0.5;
 }
 .signUpForm .term {
-  margin: var(--spacing-medium) 0;
+  margin-top: var(--spacing-small) ;
 }
 
 .term label {

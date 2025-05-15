@@ -140,6 +140,7 @@ const SignUp = () => {
       setIsLoading(false);
     }
   };
+
   return (
     <>
       <Link to="/sign-in" className={styles.goBackLink}>
@@ -265,14 +266,14 @@ const SignUp = () => {
                 checked={signUpFormData.terms}
               />
               <label htmlFor="terms">I agree to the terms and conditions</label>
+              {errors?.terms && <ErrorMessage message={errors.terms} />}
+              {signUpErrors && (
+                <ErrorMessage
+                  message={signUpErrors}
+                  className={styles.signUpErrorMessage}
+                />
+              )}
             </div>
-            {errors?.terms && <ErrorMessage message={errors.terms} />}
-            {signUpErrors && (
-              <ErrorMessage
-                message={signUpErrors}
-                className={styles.signUpErrorMessage}
-              />
-            )}
             <div className={styles.buttonContainer}>
               <Button className={styles.signUpButton} type="submit">
                 {isLoading ? <Spinner /> : "Sign up"}

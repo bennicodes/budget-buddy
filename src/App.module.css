@@ -8,6 +8,7 @@
   flex-direction: column;
   font-family: var(--font-family-primary);
 }
+
 .rootContainer .mainContainer {
   background-color: var(--primary-background-color);
   height: 100%;
