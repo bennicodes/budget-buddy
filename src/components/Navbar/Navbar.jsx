@@ -1,16 +1,44 @@
 import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { useRef, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { getAuthContext } from "../../context/AuthContext";
+import { auth } from "../../firebaseConfig";
+import Button from "../Button/Button";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownTimer = useRef(null);
+
+  const { user } = getAuthContext();
+  const navigate = useNavigate();
+
+  const handleMouseEnter = () => {
+    clearTimeout(dropdownTimer.current);
+    setShowDropdown(true);
+  };
+
+  const handleMouseLeave = () => {
+    dropdownTimer.current = setTimeout(() => {
+      setShowDropdown(false);
+    }, 100);
+  };
 
   const handleMenuToggle = (e) => {
     setIsMenuActive((prev) => !prev);
-    if (e.target.classList.contains(styles.menuIcon)) {
-      setIsMenuActive((prev) => !prev);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      setShowDropdown(false);
+      navigate("/sign-in");
+      console.log("User signed out");
+    } catch (error) {
+      console.error("Error signing out:", error.message);
     }
   };
 
@@ -47,7 +75,34 @@ const Navbar = () => {
         </NavLink>
       </div>
       <div className={styles.navbarIconsContainer}>
-        <FontAwesomeIcon icon={faUser} className={styles.profileIcon} />
+        <div
+          className={styles.profileDropdownWrapper}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          <FontAwesomeIcon icon={faUser} className={styles.profileIcon} />
+          <div
+            className={`${styles.profileDropDown} ${
+              showDropdown ? styles.profileDropDownVisible : ""
+            }`}
+          >
+            <div className={styles.arrowUp}></div>
+            {user && (
+              <Link to="/account" className={styles.dropdownLink}>
+                Account
+              </Link>
+            )}
+            {user ? (
+              <Button className={styles.signOutButton} onClick={handleSignOut}>
+                Sign out
+              </Button>
+            ) : (
+              <Link to="/sign-in" className={styles.dropdownLink}>
+                Sign in
+              </Link>
+            )}
+          </div>
+        </div>
         <FontAwesomeIcon
           icon={faBars}
           className={styles.menuIcon}

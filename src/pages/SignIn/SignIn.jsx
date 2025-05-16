@@ -47,7 +47,7 @@ const SignIn = () => {
       );
       const user = userCredential.user;
       navigate("/");
-      console.log("User successfully signed in:", user);
+      console.log("Sign in successful");
     } catch (error) {
       setError("Invalid email or password.");
       console.log("Error signing in:", error.message);

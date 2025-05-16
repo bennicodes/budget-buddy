@@ -5,7 +5,8 @@
   justify-content: space-between;
   gap: 1rem;
   background-color: var(--primary-background-color);
-  overflow-x: hidden;
+  overflow: visible;
+  border-bottom: 1px solid #357c7c;
 }
 .navbarTitle {
   color: var(--secondary-text-color);
@@ -16,9 +17,9 @@
   color: var(--secondary-text-color);
 }
 
+/* ---------------------------- */
 .navLinkContainer {
   display: flex;
-  flex-basis: 33%;
   justify-content: start;
   align-items: center;
   gap: var(--spacing-large);
@@ -38,11 +39,25 @@ a:hover {
   text-decoration: underline;
 }
 
+/* ------------------------- */
 .navbarIconsContainer {
+  min-width: 120px;
   color: var(--secondary-text-color);
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: var(--spacing-large);
+  padding-left: var(--spacing-large);
   transition: 0.2s ease;
+}
+.navbarIconsContainer .profileIcon,
+.navbarIconsContainer .menuIcon {
+  font-size: var(--font-size-medium);
+  cursor: pointer;
+}
+
+.menuIcon {
+  display: none;
 }
 
 .navbarIconsContainer .profileIcon:hover,
@@ -53,9 +68,75 @@ a:hover {
   cursor: pointer;
 }
 
-/* TODO: Responsive */
+/* ------------------------- */
+.profileDropdownWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Arrow above the dropdown */
+.arrowUp {
+  position: absolute;
+  top: -6px;
+  left: 64px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--text-color);
+  transform: rotate(45deg);
+}
+
+.profileDropDown {
+  min-width: 128px;
+  position: absolute;
+  transform: translateX(-50%) translateY(0);
+  top: 32px;
+  left: 0px;
+
+  background-color: var(--text-color);
+  color: var(--secondary-text-color);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-small);
+  padding: var(--spacing-small) var(--spacing-medium);
+  border-radius: var(--border-radius-small);
+  z-index: 1;
+  font-size: var(--font-size-small);
+}
+
+.profileDropDownVisible {
+  display: flex;
+}
+
+.signOutButton {
+  background-color: transparent;
+  color: var(--secondary-text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  border: none;
+}
+.profileDropDown a:hover,
+.profileDropDown .signOutButton:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--secondary-text-color);
+  background-color: transparent;
+}
+
 /* Media queries */
 @media screen and (max-width: 786px) {
+  .navbar {
+    padding: var(--spacing-medium) 0 var(--spacing-medium) var(--spacing-medium);
+  }
+  .menuIcon {
+    display: block;
+    z-index: 10;
+  }
   .navLinkContainer {
     background-color: #003838;
     width: 33%;
@@ -69,7 +150,7 @@ a:hover {
     right: 0;
     transform: translateX(100%);
     transition: 0.5s ease;
-    z-index: 1;
+    z-index: 10;
   }
   .navLinkContainerActive {
     transform: translateX(0);
@@ -93,13 +174,26 @@ a:hover {
     border-bottom: 1px solid var(--secondary-text-color);
   }
 
+  .navbarIconsContainer {
+    padding: 0 var(--spacing-medium);
+  }
+
   .navbarIconsContainer .menuIcon {
     z-index: 10;
   }
 }
 
 @media screen and (max-width: 550px) {
+  .navbarTitle {
+    font-size: var(--font-size-medium);
+  }
   .navLinkContainer {
     width: 60%;
+  }
+  .profileDropDown {
+    min-width: 86px;
+  }
+  .arrowUp {
+    left: 50%;
   }
 }
