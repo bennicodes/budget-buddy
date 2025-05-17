@@ -58,15 +58,22 @@
   text-align: start;
 }
 
-.forgotPassword a,
+.forgotPasswordButton,
 .signUpLink a {
+  background-color: transparent;
   color: var(--secondary-text-color);
   text-decoration: underline;
+  text-align: start;
 }
-.forgotPassword a:hover,
+.forgotPasswordButton:hover,
 .signUpLink a:hover {
+  background-color: transparent;
   color: var(--color-hover);
+  transition: 0.2s ease;
   cursor: pointer;
+}
+.forgotPasswordButton:active {
+  transform: translateY(0);
 }
 
 .signInForm .signInButton {
@@ -95,6 +102,43 @@
   border: 0.25rem solid transparent;
   border-top: 0.25rem solid var(--secondary-background-color);
   border-radius: 50%;
+}
+
+/* Reset password -------------------------- */
+.resetModalContent {
+  color: var(--text-color);
+  min-width: 40%;
+}
+
+.resetFormContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-medium);
+}
+.resetFormContainer .resetTitle {
+  color: var(--text-color);
+}
+
+.resetFormContainer label {
+  padding-top: var(--spacing-medium);
+}
+.resetInput {
+  height: 32px;
+  padding-left: var(--spacing-small);
+  background-color: transparent;
+  border: 1px solid var(--primary-background-color);
+  border-radius: var(--border-radius-small);
+}
+.resetButtonsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-medium);
+}
+.resetButtonsContainer button {
+  flex: 1;
+  color: var(--secondary-text-color);
+  background-color: var(--primary-background-color);
 }
 
 /* Animations */

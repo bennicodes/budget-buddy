@@ -1,5 +1,4 @@
 import TotalExpenses from "../../components/TotalExpenses/TotalExpenses";
-import Transactions from "../Transactions/Transactions";
 import styles from "./Home.module.css";
 
 const Home = () => {
@@ -8,11 +7,7 @@ const Home = () => {
       <header className={styles.header}>
         <TotalExpenses />
       </header>
-      <main>
-        {/* <div className={styles.transactionsContainer}>
-          <Transactions />
-        </div> */}
-      </main>
+      <main></main>
     </div>
   );
 };

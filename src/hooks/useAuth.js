@@ -16,7 +16,6 @@ export const useAuth = () => {
         email,
         password
       );
-      console.log("userCredentials", userCredentials);
 
       const user = userCredentials.user;
       sendEmailVerification(userCredentials.user);

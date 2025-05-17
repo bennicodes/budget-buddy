@@ -1,10 +1,14 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import {
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./SignIn.module.css";
 // Import components
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
 import Button from "../../components/Button/Button";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import Modal from "../../components/Modal/Modal";
 import Spinner from "../../components/Spinner/Spinner";
 import { auth } from "../../firebaseConfig";
 import useSignInValidation from "../../hooks/useSignInValidation";
@@ -56,10 +60,36 @@ const SignIn = () => {
     }
   };
 
+  // Reset password
+  const handlePasswordReset = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!resetEmail.trim()) {
+      setResetMessage("Email is required to reset password");
+      return;
+    } else if (!emailRegex.test(resetEmail.trim())) {
+      newErrors.email = "Please enter a valid email address";
+      return;
+    }
+    try {
+      await sendPasswordResetEmail(auth, resetEmail);
+      setResetMessage("Reset email has been sent. Please check your inbox.");
+      setResetEmail("");
+    } catch (error) {
+      setResetMessage("Error sending password reset email. Please try again.");
+      console.error("Error sending password reset email:", error);
+    }
+  };
+  // Close reset modal
+  const closeResetModal = () => {
+    setShowForgotPasswordModal(false);
+    setResetMessage("");
+    setResetEmail("");
+  };
+
   return (
     <div className={styles.signInWrapper}>
       <form className={styles.signInForm} onSubmit={handleSignIn} noValidate>
-        <h1 className={styles.title}>Sign in</h1>
+        <h1 className={styles.title}>Log in</h1>
         <div className={styles.inputsContainer}>
           <div className={styles.inputGroup}>
             <label htmlFor="email">Email</label>
@@ -111,14 +141,61 @@ const SignIn = () => {
           )}
         </Button>
         <p className={styles.forgotPassword}>
-          <NavLink to="forgot-password">Forgot your password?</NavLink>
+          <Button
+            type="button"
+            className={styles.forgotPasswordButton}
+            onClick={() => setShowForgotPasswordModal(true)}
+          >
+            Forgot your password?
+          </Button>
         </p>
         <p className={styles.signUpLink}>
-          <NavLink to="/sign-up">Don´t have an account? Sign up</NavLink>
+          <Link to="/sign-up">Don´t have an account? Sign up</Link>
         </p>
       </form>
+      {/* -------------------------- */}
+      {/* Forgot password modal */}
+      <Modal
+        contentClassName={styles.resetModalContent}
+        isOpen={showForgotPasswordModal}
+        closeModal={closeResetModal}
+      >
+        <form className={styles.resetFormContainer}>
+          <h3 className={styles.resetTitle}>Reset Password</h3>
+          <p>
+            Please enter your email address and press "reset". You will receive
+            an email with a link to reset your password.
+          </p>
+          <input
+            type="email"
+            name="resetEmail"
+            id="resetEmail"
+            placeholder="Enter your email address"
+            className={styles.resetInput}
+            onChange={(e) => setResetEmail(e.target.value)}
+            value={resetEmail}
+          />
+          <div className={styles.resetButtonsContainer}>
+            <Button
+              className={styles.resetPasswordButton}
+              onClick={handlePasswordReset}
+            >
+              Reset Password
+            </Button>
+            <Button
+              className={styles.closeButton}
+              type="button"
+              onClick={closeResetModal}
+            >
+              Close
+            </Button>
+          </div>
+          {resetMessage && (
+            <p className={styles.errorMessage}>{resetMessage}</p>
+          )}
+        </form>
+      </Modal>
     </div>
   );
 };
-
 export default SignIn;

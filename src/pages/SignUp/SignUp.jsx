@@ -111,7 +111,7 @@ const SignUp = () => {
         signUpFormData.password
       );
       const user = userCredential.user;
-      console.log("User signed up successfully:", userCredential.user);
+      console.log("User signed up successfully.");
 
       await setDoc(doc(database, "users", user.uid), {
         uid: user.uid,
@@ -276,7 +276,14 @@ const SignUp = () => {
             </div>
             <div className={styles.buttonContainer}>
               <Button className={styles.signUpButton} type="submit">
-                {isLoading ? <Spinner /> : "Sign up"}
+                {isLoading ? (
+                  <Spinner
+                    wrapperClassName={styles.spinnerWrapper}
+                    spinnerClassName={styles.spinnerCircle}
+                  />
+                ) : (
+                  "Sign up"
+                )}
               </Button>
             </div>
           </form>

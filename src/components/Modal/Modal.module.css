@@ -13,7 +13,7 @@
 
 .modalContent {
   width: 33%;
-  background-color: var(--color-background);
+  background-color: var(--secondary-background-color);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-medium);
@@ -26,12 +26,10 @@
   .modalContent {
     width: 75%;
   }
-
 }
 
 @media screen and (max-width: 475px) {
   .modalContent {
     width: 90%;
   }
-
 }
