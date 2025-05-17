@@ -1,3 +1,4 @@
+import CurrencyCalculator from "../../components/CurrencyCalculator/CurrencyCalculator";
 import TotalExpenses from "../../components/TotalExpenses/TotalExpenses";
 import styles from "./Home.module.css";
 
@@ -7,7 +8,9 @@ const Home = () => {
       <header className={styles.header}>
         <TotalExpenses />
       </header>
-      <main></main>
+      <main>
+        <CurrencyCalculator />
+      </main>
     </div>
   );
 };

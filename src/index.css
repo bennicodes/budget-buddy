@@ -26,6 +26,7 @@ button {
   --color-hover: #6c757d;
   --text-color: #000;
   --secondary-text-color: #efeff0;
+  --border-color: #357c7c;
   --error-color: #f04f3d;
 
   /* Spacing */
