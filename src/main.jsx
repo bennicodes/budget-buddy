@@ -7,9 +7,9 @@ import "./index.css";
 import { router } from "./routes/routes.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  // <StrictMode>
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>
-  </StrictMode>
+  // </StrictMode>
 );
