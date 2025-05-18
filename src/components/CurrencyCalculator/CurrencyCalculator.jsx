@@ -34,7 +34,7 @@ const CurrencyCalculator = () => {
     }));
   };
 
-  //   Get currency symbols from API and store in local storage to limit fetches
+  //   Get currency symbols from API and store in local storage to limit fetches and preserve data when switching pages
   useEffect(() => {
     const fetchCurrencySymbols = async () => {
       try {
@@ -75,29 +75,29 @@ const CurrencyCalculator = () => {
     }
   }, [currencySymbols]);
 
-//   //   Convert currencies when inputs change
-//   useEffect(() => {
-//     const convert = async () => {
-//       const data = await convertCurrency(
-//         currencyData.fromCurrency,
-//         currencyData.toCurrency,
-//         currencyData.fromAmount
-//       );
-//       console.log(data);
-//       setCurrencyData((prevData) => ({
-//         ...prevData,
-//         result: data.result,
-//       }));
-//     };
+  //   //   Convert currencies when inputs change
+  //   useEffect(() => {
+  //     const convert = async () => {
+  //       const data = await convertCurrency(
+  //         currencyData.fromCurrency,
+  //         currencyData.toCurrency,
+  //         currencyData.fromAmount
+  //       );
+  //       console.log(data);
+  //       setCurrencyData((prevData) => ({
+  //         ...prevData,
+  //         result: data.result,
+  //       }));
+  //     };
 
-//     if (currencyData.fromAmount > 0) {
-//       convert();
-//     }
-//   }, [
-//     currencyData.fromCurrency,
-//     currencyData.toCurrency,
-//     currencyData.fromAmount,
-//   ]);
+  //     if (currencyData.fromAmount > 0) {
+  //       convert();
+  //     }
+  //   }, [
+  //     currencyData.fromCurrency,
+  //     currencyData.toCurrency,
+  //     currencyData.fromAmount,
+  //   ]);
 
   return (
     <div className={styles.calculatorWrapper}>

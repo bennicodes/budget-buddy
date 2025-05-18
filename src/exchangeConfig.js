@@ -19,8 +19,6 @@ export const getCurrencySymbols = async (from, to, amount) => {
     const data = await response.json();
     console.log(data);
     const result = data.currencies;
-    console.log(result);
-
     return result;
   } catch (error) {
     console.error("Error fetching currency data:", error);
