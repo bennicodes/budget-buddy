@@ -7,10 +7,11 @@ import {
 import App from "../App";
 import AuthRedirect from "../components/auth/AuthRedirect";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
+import Contact from "../pages/Contact/Contact";
+import Expenses from "../pages/Expenses/Expenses";
 import Home from "../pages/Home/Home";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
-import Transactions from "../pages/Transactions/Transactions";
 import VerifyEmail from "../pages/VerifyEmail/VerifyEmail";
 
 export const router = createBrowserRouter(
@@ -46,10 +47,18 @@ export const router = createBrowserRouter(
         }
       />
       <Route
-        path="/transactions"
+        path="/expenses"
         element={
           <ProtectedRoute>
-            <Transactions />
+            <Expenses />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/contact"
+        element={
+          <ProtectedRoute>
+            <Contact />
           </ProtectedRoute>
         }
       />

@@ -1,10 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { category_options } from "../../data/constants/categories";
 import Button from "../Button/Button";
 import styles from "./Form.module.css";
 
-const Form = ({ closeModal, addExpense, editExpense, initialExpense }) => {
+const addExpense = ({
+  closeModal,
+  addExpense,
+  editExpense,
+  initialExpense,
+}) => {
   const isEdit = Boolean(initialExpense);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -182,4 +187,4 @@ const Form = ({ closeModal, addExpense, editExpense, initialExpense }) => {
   );
 };
 
-export default Form;
+export default addExpense;

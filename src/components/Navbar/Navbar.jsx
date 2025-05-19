@@ -61,10 +61,10 @@ const Navbar = () => {
           Home
         </NavLink>
         <NavLink
-          to="/transactions"
+          to="/expenses"
           className={({ isActive }) => (isActive ? styles.active : "")}
         >
-          Transactions
+          Expenses
         </NavLink>
 
         <NavLink
