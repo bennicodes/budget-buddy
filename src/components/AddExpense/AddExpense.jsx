@@ -2,7 +2,9 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useState } from "react";
 import { categories } from "../../data/categories";
 import { database } from "../../firebaseConfig";
+import useAddExpenseValidation from "../../hooks/useAddExpenseValidation";
 import Button from "../Button/Button";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import styles from "./AddExpense.module.css";
 
 const AddExpense = () => {
@@ -15,6 +17,9 @@ const AddExpense = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
 
+  // Validation
+  const { validateAddForm, addExpenseErrors } = useAddExpenseValidation();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -24,11 +29,22 @@ const AddExpense = () => {
     e.preventDefault();
     const { expenseName, expenseAmount, expenseDate, expenseCategory } =
       formData;
-    // const isValid = useAddExpenseValidation(formData);
-    if (!expenseName || !expenseAmount || !expenseDate || !expenseCategory) {
-      setErrorMessage("Please fill out all fields.");
+    setErrorMessage("");
+
+    if (!validateAddForm(formData)) {
+      console.log("form is not valid");
       return;
     }
+
+    // if (
+    //   !expenseName.trim() ||
+    //   !expenseAmount.trim() ||
+    //   !expenseDate.trim() ||
+    //   !expenseCategory.trim()
+    // ) {
+    //   setErrorMessage("Please fill out all fields.");
+    //   return;
+    // }
     // if (!isValid) return;
     try {
       const expensesRef = collection(database, "expenses");
@@ -71,6 +87,12 @@ const AddExpense = () => {
           onChange={handleChange}
           value={formData.expenseName}
         />
+        {addExpenseErrors.expenseName && (
+          <ErrorMessage
+            className={styles.errorMessage}
+            message={addExpenseErrors.expenseName}
+          />
+        )}
       </div>
       <div className={styles.formGroup}>
         <label htmlFor="expenseAmount">Amount:</label>
@@ -84,6 +106,12 @@ const AddExpense = () => {
           onChange={handleChange}
           value={formData.expenseAmount}
         />
+        {addExpenseErrors.expenseAmount && (
+          <ErrorMessage
+            className={styles.errorMessage}
+            message={addExpenseErrors.expenseAmount}
+          />
+        )}
       </div>
       <div className={styles.formGroup}>
         <label htmlFor="expenseDate">Date:</label>
@@ -94,6 +122,12 @@ const AddExpense = () => {
           onChange={handleChange}
           value={formData.expenseDate}
         />
+        {addExpenseErrors.expenseDate && (
+          <ErrorMessage
+            className={styles.errorMessage}
+            message={addExpenseErrors.expenseDate}
+          />
+        )}
       </div>
       <div className={styles.formGroup}>
         <label htmlFor="expenseCategory">Category:</label>
@@ -116,9 +150,16 @@ const AddExpense = () => {
             );
           })}
         </select>
+        {addExpenseErrors.expenseCategory && (
+          <ErrorMessage
+            className={styles.errorMessage}
+            message={addExpenseErrors.expenseCategory}
+          />
+        )}
       </div>
       {message && <p className={styles.successMessage}>{message}</p>}
-      {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+      {/* --------------------- */}
+      {errorMessage && <ErrorMessage message={errorMessage}></ErrorMessage>}
       <div className={styles.buttonContainer}>
         <Button className={styles.formButton} type="submit">
           Add Expense

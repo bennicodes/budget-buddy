@@ -60,8 +60,7 @@
 
 .errorMessage {
   width: 100%;
-  text-align: center;
-  color: var(--error-color);
+  padding: 0;
 }
 
 .successMessage {

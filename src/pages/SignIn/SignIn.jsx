@@ -25,7 +25,7 @@ const SignIn = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // Destructure validation
+  // Validation
   const { validateSignIn, signInErrors } = useSignInValidation();
 
   const navigate = useNavigate();
@@ -38,10 +38,8 @@ const SignIn = () => {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    if (!validateSignIn(signInFormData)) {
-      console.log("Form invalid");
-      return;
-    }
+    if (!validateSignIn(signInFormData)) return;
+
     try {
       setIsLoading(true);
       const userCredential = await signInWithEmailAndPassword(
