@@ -32,20 +32,9 @@ const AddExpense = () => {
     setErrorMessage("");
 
     if (!validateAddForm(formData)) {
-      console.log("form is not valid");
       return;
     }
 
-    // if (
-    //   !expenseName.trim() ||
-    //   !expenseAmount.trim() ||
-    //   !expenseDate.trim() ||
-    //   !expenseCategory.trim()
-    // ) {
-    //   setErrorMessage("Please fill out all fields.");
-    //   return;
-    // }
-    // if (!isValid) return;
     try {
       const expensesRef = collection(database, "expenses");
       await addDoc(expensesRef, {
@@ -62,7 +51,6 @@ const AddExpense = () => {
           expenseDate: "",
           expenseCategory: "",
         });
-      setErrorMessage("");
       setMessage("Expense added successfully!");
 
       // Clear success message after 3 seconds
@@ -86,6 +74,7 @@ const AddExpense = () => {
           placeholder="Rent"
           onChange={handleChange}
           value={formData.expenseName}
+          className={addExpenseErrors.expenseName ? styles.inputError : ""}
         />
         {addExpenseErrors.expenseName && (
           <ErrorMessage
@@ -102,7 +91,9 @@ const AddExpense = () => {
           id="expenseAmount"
           placeholder="2000"
           min={0}
-          className={styles.amountInput}
+          className={`${styles.amountInput} ${
+            addExpenseErrors.expenseAmount ? styles.inputError : ""
+          }`}
           onChange={handleChange}
           value={formData.expenseAmount}
         />
@@ -121,6 +112,7 @@ const AddExpense = () => {
           id="expenseDate"
           onChange={handleChange}
           value={formData.expenseDate}
+          className={addExpenseErrors.expenseDate ? styles.inputError : ""}
         />
         {addExpenseErrors.expenseDate && (
           <ErrorMessage
@@ -134,7 +126,9 @@ const AddExpense = () => {
         <select
           name="expenseCategory"
           id="expenseCategory"
-          className={styles.categoryDropdown}
+          className={`${styles.categoryDropdown} ${
+            addExpenseErrors.expenseCategory ? styles.dropDownError : ""
+          }}`}
           onChange={handleChange}
           value={formData.expenseCategory}
         >
