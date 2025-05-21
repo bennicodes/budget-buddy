@@ -7,7 +7,7 @@ import Button from "../Button/Button";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import styles from "./AddExpense.module.css";
 
-const AddExpense = () => {
+const AddExpense = ({ closeModal }) => {
   const [formData, setFormData] = useState({
     expenseName: "",
     expenseAmount: "",
@@ -19,6 +19,16 @@ const AddExpense = () => {
 
   // Validation
   const { validateAddForm, addExpenseErrors } = useAddExpenseValidation();
+
+  const handleCloseModal = () => {
+    setFormData({
+      expenseName: "",
+      expenseAmount: "",
+      expenseDate: "",
+      expenseCategory: "",
+    });
+    closeModal(false);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,13 +54,14 @@ const AddExpense = () => {
         category: expenseCategory,
         createdAt: serverTimestamp(),
       }),
-        // Reset form
-        setFormData({
-          expenseName: "",
-          expenseAmount: "",
-          expenseDate: "",
-          expenseCategory: "",
-        });
+        closeModal(false);
+      // Reset form
+      setFormData({
+        expenseName: "",
+        expenseAmount: "",
+        expenseDate: "",
+        expenseCategory: "",
+      });
       setMessage("Expense added successfully!");
 
       // Clear success message after 3 seconds
@@ -158,7 +169,11 @@ const AddExpense = () => {
         <Button className={styles.formButton} type="submit">
           Add Expense
         </Button>
-        <Button className={styles.formButton} type="button">
+        <Button
+          className={styles.formButton}
+          type="button"
+          onClick={handleCloseModal}
+        >
           Close
         </Button>
       </div>
