@@ -68,6 +68,7 @@ const Expenses = () => {
           expenseId={selectedExpenseId}
         />
       </Modal>
+      {/* Expenses list -------------------------- */}
       <div className={styles.expenseListWrapper}>
         <div className={styles.expenseListHeader}>
           <h2 className={styles.title}>Expenses</h2>
@@ -89,8 +90,7 @@ const Expenses = () => {
           />
         )}
       </div>
-      {/* Delete modal */}
-
+      {/* Delete modal ----------------------------- */}
       <Modal
         contentClassName={styles.deleteModal}
         isOpen={isDeleteOpen}
