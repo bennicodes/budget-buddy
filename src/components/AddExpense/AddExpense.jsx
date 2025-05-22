@@ -1,5 +1,11 @@
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { useState } from "react";
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
+import { useEffect, useState } from "react";
 import { categories } from "../../data/categories";
 import { database } from "../../firebaseConfig";
 import useAddExpenseValidation from "../../hooks/useAddExpenseValidation";
@@ -7,7 +13,12 @@ import Button from "../Button/Button";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import styles from "./AddExpense.module.css";
 
-const AddExpense = ({ closeModal, triggerReload }) => {
+const AddExpense = ({
+  closeModal,
+  isEditing = false,
+  existingExpense = null,
+  expenseId = null,
+}) => {
   const [formData, setFormData] = useState({
     expenseName: "",
     expenseAmount: "",
@@ -30,53 +41,97 @@ const AddExpense = ({ closeModal, triggerReload }) => {
     closeModal(false);
   };
 
+  const editExpense = async (expenseId, updatedData) => {
+    const expenseRef = doc(database, "expenses", expenseId);
+    await updateDoc(expenseRef, updatedData);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  useEffect(() => {
+    if (isEditing && existingExpense) {
+      setFormData({
+        expenseName: existingExpense.name,
+        expenseAmount: existingExpense.amount,
+        expenseDate: existingExpense.date,
+        expenseCategory: existingExpense.category,
+      });
+    }
+  }, [isEditing, existingExpense]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { expenseName, expenseAmount, expenseDate, expenseCategory } =
       formData;
+    let timer;
     setErrorMessage("");
 
     if (!validateAddForm(formData)) {
       return;
     }
+    if (isEditing) {
+      if (!validateAddForm(formData)) return;
 
-    try {
-      const expensesRef = collection(database, "expenses");
-      await addDoc(expensesRef, {
+      await editExpense(expenseId, {
         name: expenseName,
         amount: expenseAmount,
         date: expenseDate,
         category: expenseCategory,
-        createdAt: serverTimestamp(),
-      }),
-        // Reset form
-        setFormData({
-          expenseName: "",
-          expenseAmount: "",
-          expenseDate: "",
-          expenseCategory: "",
-        });
-      setMessage("Expense added successfully!");
+      });
 
-      // Clear success message after 3 seconds
-      const timer = setTimeout(() => {
+      // Reset form
+      setFormData({
+        expenseName: "",
+        expenseAmount: "",
+        expenseDate: "",
+        expenseCategory: "",
+      });
+      setMessage("Expense updated successfully!");
+      timer = setTimeout(() => {
         setMessage("");
         closeModal(false);
       }, 3000);
-    } catch (error) {
-      setErrorMessage("Failed to add expense.");
-      clearTimeout(timer);
+
+      return;
+    } else {
+      try {
+        const expensesRef = collection(database, "expenses");
+        await addDoc(expensesRef, {
+          name: expenseName,
+          amount: expenseAmount,
+          date: expenseDate,
+          category: expenseCategory,
+          createdAt: serverTimestamp(),
+        }),
+          // Reset form
+          setFormData({
+            expenseName: "",
+            expenseAmount: "",
+            expenseDate: "",
+            expenseCategory: "",
+          });
+        setMessage("Expense added successfully!");
+
+        // Clear success message after 3 seconds
+        timer = setTimeout(() => {
+          setMessage("");
+          closeModal(false);
+        }, 3000);
+      } catch (error) {
+        setErrorMessage("Failed to add expense.");
+        clearTimeout(timer);
+      }
     }
   };
 
   return (
     <form className={styles.addExpenseForm} onSubmit={handleSubmit} noValidate>
-      <h2 className={styles.title}>Add Expense</h2>
+      <h2 className={styles.title}>
+        {isEditing ? "Edit Expense" : "Add Expense"}
+      </h2>
       <div className={styles.formGroup}>
         <label htmlFor="expenseName">Name:</label>
         <input
@@ -140,7 +195,7 @@ const AddExpense = ({ closeModal, triggerReload }) => {
           id="expenseCategory"
           className={`${styles.categoryDropdown} ${
             addExpenseErrors.expenseCategory ? styles.dropDownError : ""
-          }}`}
+          }`}
           onChange={handleChange}
           value={formData.expenseCategory}
         >
@@ -168,7 +223,7 @@ const AddExpense = ({ closeModal, triggerReload }) => {
       {errorMessage && <ErrorMessage message={errorMessage}></ErrorMessage>}
       <div className={styles.buttonContainer}>
         <Button className={styles.formButton} type="submit">
-          Add Expense
+          {isEditing ? "Save Changes" : "Add Expense"}
         </Button>
         <Button
           className={styles.formButton}

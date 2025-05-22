@@ -47,6 +47,10 @@ tr {
   text-align: center;
 }
 
+.tableHeadRow th{
+  text-align: start;
+}
+
 th,
 td {
   padding: var(--spacing-small);

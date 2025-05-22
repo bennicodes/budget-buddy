@@ -12,27 +12,51 @@ import styles from "./Expenses.module.css";
 const Expenses = () => {
   // State variables
   const [isOpen, setIsOpen] = useState(false);
-  const [refreshTrigger, setRefreshTrigger] = useState(false);
   const { expenses, loading, error } = useFetchExpenses();
+  const [selectedExpense, setSelectedExpense] = useState(null);
+  const [selectedExpenseId, setSelectedExpenseId] = useState(null);
+
+  const handleOpenModal = () => {
+    setIsOpen(true);
+    setSelectedExpense(null);
+    setSelectedExpenseId(null);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
+    setSelectedExpense(null);
+    setSelectedExpenseId(null);
+  };
 
   return (
     <div className={styles.expensesWrapper}>
       <Modal contentClassName={styles.addExpenseModal} isOpen={isOpen}>
-        <AddExpense closeModal={setIsOpen} />
+        <AddExpense
+          closeModal={handleCloseModal}
+          isEditing={!!selectedExpense}
+          existingExpense={selectedExpense}
+          expenseId={selectedExpenseId}
+        />
       </Modal>
       <div className={styles.expenseListWrapper}>
         <div className={styles.expenseListHeader}>
           <h2 className={styles.title}>Expenses</h2>
-          <Button
-            className={styles.openModalButton}
-            onClick={() => setIsOpen(true)}
-          >
+          <Button className={styles.openModalButton} onClick={handleOpenModal}>
             Add expense
           </Button>
         </div>
         {loading && <Spinner />}
         {error && <p className={styles.errorMessage}>{error}</p>}
-        {!loading && <ExpenseList expenses={expenses} />}
+        {!loading && (
+          <ExpenseList
+            expenses={expenses}
+            onEdit={(expense) => {
+              setSelectedExpense(expense);
+              setSelectedExpenseId(expense.id);
+              setIsOpen(true);
+            }}
+          />
+        )}
       </div>
     </div>
   );
