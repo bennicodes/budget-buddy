@@ -36,7 +36,7 @@ a:hover {
 }
 
 .navbar a.active {
-  text-decoration: underline;
+  border-bottom: 1px solid var(--secondary-text-color);
 }
 
 /* ------------------------- */

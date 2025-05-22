@@ -4,8 +4,8 @@ import styles from "./ExpenseList.module.css";
 const ExpenseList = ({ expenses, onEdit, openDeleteModal }) => {
   return (
     <div className={styles.expenseListContainer}>
-      {expenses.length > 0 ? (
-        <div className={styles.tableScrollWrapper}>
+      <div className={styles.listScrollWrapper}>
+        {expenses.length > 0 ? (
           <table className={styles.expenseTable}>
             <thead>
               <tr className={styles.tableHeadRow}>
@@ -13,7 +13,7 @@ const ExpenseList = ({ expenses, onEdit, openDeleteModal }) => {
                 <th>Category</th>
                 <th>Date</th>
                 <th>Amount</th>
-                <th>Actions</th>
+                <th className={styles.actionHeading}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -27,10 +27,10 @@ const ExpenseList = ({ expenses, onEdit, openDeleteModal }) => {
               ))}
             </tbody>
           </table>
-        </div>
-      ) : (
-        <p className={styles.expenseParagraph}>No expenses recorded yet!</p>
-      )}
+        ) : (
+          <p className={styles.message}>No expenses recorded yet!</p>
+        )}
+      </div>
     </div>
   );
 };

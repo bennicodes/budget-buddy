@@ -4,24 +4,29 @@
   gap: var(--spacing-small);
 }
 .actionButton {
-  background-color: var(--color-button);
-  color: var(--color-background);
+  background-color: var(--primary-button-color);
+  color: var(--secondary-text-color);
   min-width: 64px;
   padding: 4px;
   border: none;
   border-radius: var(--border-radius-small);
 }
-.actionButton:hover {
-  background-color: var(--color-hover);
-  transition: 0.3s ease;
-}
-.actionButton:active {
-  transform: translateY(2px);
-  transition: 0s;
-}
 
 @media screen and (max-width: 900px) {
   .actionContainer {
     flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .actionButton {
+    min-width: 100%;
+    width: 100%;
+    font-size: var(--font-size-small);
+  }
+}
+@media screen and (max-width: 630px) {
+  .actionButton {
+    font-size: 0.5rem;
   }
 }

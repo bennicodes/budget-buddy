@@ -1,3 +1,69 @@
-.addExpenseModal{
-    background-color: #fff;
+.addExpenseModal {
+  background-color: #fff;
+}
+
+.expensesWrapper {
+  width: 100%;
+  min-height: 80vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-xl);
+}
+
+.expensesWrapper .expenseListWrapper {
+  background-color: var(--secondary-background-color);
+  min-height: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--spacing-large);
+  border-radius: var(--border-radius-medium);
+  overflow-y: auto;
+}
+
+.expenseListHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-large);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-medium);
+}
+.expenseListHeader .title {
+  font-size: var(--font-size-large);
+  color: var(--primary-background-color);
+  margin-bottom: var(--spacing-medium);
+  flex-grow: 1;
+}
+
+.openModalButton {
+  background-color: var(--primary-background-color);
+  flex-basis: 33%;
+  font-size: var(--font-size-base);
+}
+
+.errorMessage {
+  text-align: center;
+  font-size: var(--font-size-medium);
+  color: var(--error-color);
+  padding: var(--spacing-medium) 0;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 630px) {
+  .expensesWrapper {
+    padding: var(--spacing-medium);
+  }
+  .expensesWrapper .expenseListWrapper {
+    padding: var(--spacing-medium);
+  }
+  .expenseListHeader .title {
+    font-size: var(--font-size-medium);
+  }
+  .openModalButton {
+    font-size: var(--font-size-small);
+    flex-basis: 25%;
+  }
 }

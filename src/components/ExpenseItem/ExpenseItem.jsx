@@ -9,7 +9,7 @@ const ExpenseItem = ({ expense, onEdit, openDeleteModal }) => {
   });
 
   const capitalizedCategory =
-    expense.category.charAt(0).toUpperCase() + expense.category.slice(1);
+    (expense.category).charAt(0).toUpperCase() + (expense.category).slice(1);
 
   return (
     <tr className={styles.expenseRow}>

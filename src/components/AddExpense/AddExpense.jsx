@@ -7,7 +7,7 @@ import Button from "../Button/Button";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import styles from "./AddExpense.module.css";
 
-const AddExpense = ({ closeModal }) => {
+const AddExpense = ({ closeModal, triggerReload }) => {
   const [formData, setFormData] = useState({
     expenseName: "",
     expenseAmount: "",
@@ -54,27 +54,28 @@ const AddExpense = ({ closeModal }) => {
         category: expenseCategory,
         createdAt: serverTimestamp(),
       }),
-        closeModal(false);
-      // Reset form
-      setFormData({
-        expenseName: "",
-        expenseAmount: "",
-        expenseDate: "",
-        expenseCategory: "",
-      });
+        // Reset form
+        setFormData({
+          expenseName: "",
+          expenseAmount: "",
+          expenseDate: "",
+          expenseCategory: "",
+        });
       setMessage("Expense added successfully!");
 
       // Clear success message after 3 seconds
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setMessage("");
+        closeModal(false);
       }, 3000);
     } catch (error) {
       setErrorMessage("Failed to add expense.");
+      clearTimeout(timer);
     }
   };
 
   return (
-    <form className={styles.addExpenseForm} onSubmit={handleSubmit}>
+    <form className={styles.addExpenseForm} onSubmit={handleSubmit} noValidate>
       <h2 className={styles.title}>Add Expense</h2>
       <div className={styles.formGroup}>
         <label htmlFor="expenseName">Name:</label>
