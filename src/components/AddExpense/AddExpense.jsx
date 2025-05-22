@@ -93,7 +93,7 @@ const AddExpense = ({
       timer = setTimeout(() => {
         setMessage("");
         closeModal(false);
-      }, 3000);
+      }, 2500);
 
       return;
     } else {
@@ -119,7 +119,7 @@ const AddExpense = ({
         timer = setTimeout(() => {
           setMessage("");
           closeModal(false);
-        }, 3000);
+        }, 2500);
       } catch (error) {
         setErrorMessage("Failed to add expense.");
         clearTimeout(timer);

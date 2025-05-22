@@ -1,5 +1,4 @@
 import Button from "../Button/Button";
-import ExpenseItem from "../ExpenseItem/ExpenseItem";
 import Modal from "../Modal/Modal";
 import styles from "./DeleteModal.module.css";
 

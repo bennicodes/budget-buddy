@@ -52,6 +52,33 @@
   font-weight: bold;
 }
 
+/* Delete modal */
+.deleteTitle {
+  text-align: center;
+}
+
+.deleteMessage {
+  text-align: center;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-medium);
+  margin-top: var(--spacing-medium);
+}
+.button {
+  border: none;
+  min-height: 32px;
+  padding: 0 var(--spacing-medium);
+}
+
+.confirm {
+  background-color: var(--secondary-button-color);
+  color: white;
+}
+
+/* ---------------------------- */
 @media screen and (max-width: 630px) {
   .expensesWrapper {
     padding: var(--spacing-medium);
@@ -65,5 +92,11 @@
   .openModalButton {
     font-size: var(--font-size-small);
     flex-basis: 25%;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .openModalButton {
+    padding: 0 4px;
   }
 }

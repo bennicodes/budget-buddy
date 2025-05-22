@@ -5,7 +5,7 @@
   align-items: center;
 }
 
-.listScrollWrapper{
+.listScrollWrapper {
   width: 100%;
   max-height: 400px;
   overflow-y: auto;
@@ -47,7 +47,7 @@ tr {
   text-align: center;
 }
 
-.tableHeadRow th{
+.tableHeadRow th {
   text-align: start;
 }
 
@@ -65,10 +65,6 @@ td {
 }
 
 @media screen and (max-width: 768px) {
-  .expenseListContainer {
-    width: 90%;
-  }
-
   .expenseTable {
     font-size: var(--font-size-small);
   }

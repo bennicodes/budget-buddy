@@ -1,5 +1,5 @@
-import { collection, getDocs } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { deleteDoc, doc } from "firebase/firestore";
+import { useState } from "react";
 import AddExpense from "../../components/AddExpense/AddExpense";
 import Button from "../../components/Button/Button";
 import ExpenseList from "../../components/ExpenseList/ExpenseList";
@@ -15,6 +15,9 @@ const Expenses = () => {
   const { expenses, loading, error } = useFetchExpenses();
   const [selectedExpense, setSelectedExpense] = useState(null);
   const [selectedExpenseId, setSelectedExpenseId] = useState(null);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [expenseToDelete, setExpenseToDelete] = useState(null);
+  const [deleteMessage, setDeleteMessage] = useState("");
 
   const handleOpenModal = () => {
     setIsOpen(true);
@@ -28,8 +31,35 @@ const Expenses = () => {
     setSelectedExpenseId(null);
   };
 
+  const handleOpenDeleteModal = (expense) => {
+    setExpenseToDelete(expense);
+    setIsDeleteOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setExpenseToDelete(null);
+    setIsDeleteOpen(false);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!expenseToDelete) return;
+    let timer;
+    try {
+      await deleteDoc(doc(database, "expenses", expenseToDelete.id));
+      setDeleteMessage(`${expenseToDelete.name} deleted successfully.`);
+      timer = setTimeout(() => {
+        setDeleteMessage("");
+        handleCloseDeleteModal();
+      }, 2500);
+    } catch (error) {
+      setDeleteMessage("Failed to delete expense.");
+      clearTimeout(timer);
+    }
+  };
+
   return (
     <div className={styles.expensesWrapper}>
+      {/* Add/Edit modal */}
       <Modal contentClassName={styles.addExpenseModal} isOpen={isOpen}>
         <AddExpense
           closeModal={handleCloseModal}
@@ -55,9 +85,42 @@ const Expenses = () => {
               setSelectedExpenseId(expense.id);
               setIsOpen(true);
             }}
+            openDeleteModal={handleOpenDeleteModal}
           />
         )}
       </div>
+      {/* Delete modal */}
+
+      <Modal
+        contentClassName={styles.deleteModal}
+        isOpen={isDeleteOpen}
+        closeModal={handleCloseDeleteModal}
+      >
+        <h2 className={styles.deleteTitle}>Confirm Delete</h2>
+        <p className={styles.deleteMessage}>
+          Are you sure you want to delete{" "}
+          <strong>"{expenseToDelete?.name}"</strong>?
+        </p>
+        <div className={styles.buttonContainer}>
+          <Button
+            type="button"
+            onClick={handleConfirmDelete}
+            className={`${styles.button} ${styles.confirm}`}
+          >
+            Delete
+          </Button>
+          <Button
+            type="button"
+            onClick={handleCloseDeleteModal}
+            className={`${styles.button} ${styles.cancel}`}
+          >
+            Cancel
+          </Button>
+        </div>
+        {deleteMessage && (
+          <p className={styles.deleteMessage}>{deleteMessage}</p>
+        )}
+      </Modal>
     </div>
   );
 };

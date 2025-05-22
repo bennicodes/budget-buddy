@@ -1,4 +1,4 @@
-import Button from "../Button/Button"; // Import Button component
+import Button from "../Button/Button";
 import styles from "./ExpenseItem.module.css";
 
 const ExpenseItem = ({ expense, onEdit, openDeleteModal }) => {
@@ -8,13 +8,12 @@ const ExpenseItem = ({ expense, onEdit, openDeleteModal }) => {
     day: "numeric",
   });
 
-  const capitalizedCategory =
-    (expense.category).charAt(0).toUpperCase() + (expense.category).slice(1);
+  const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
   return (
     <tr className={styles.expenseRow}>
-      <td>{expense.name}</td>
-      <td>{capitalizedCategory}</td>
+      <td>{capitalize(expense.name)}</td>
+      <td>{capitalize(expense.category)}</td>
       <td>{formattedDate}</td>
       <td>${expense.amount}</td>
       <td className={styles.actionContainer}>
@@ -28,7 +27,7 @@ const ExpenseItem = ({ expense, onEdit, openDeleteModal }) => {
         <Button
           type="button"
           className={`${styles.actionButton} ${styles.deleteButton}`}
-          onClick={() => openDeleteModal(expense.id)}
+          onClick={() => openDeleteModal(expense)}
         >
           Delete
         </Button>
