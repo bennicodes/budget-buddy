@@ -5,6 +5,7 @@ import Button from "../../components/Button/Button";
 import ExpenseList from "../../components/ExpenseList/ExpenseList";
 import Modal from "../../components/Modal/Modal";
 import Spinner from "../../components/Spinner/Spinner";
+import TotalExpenses from "../../components/TotalExpenses/TotalExpenses";
 import { database } from "../../firebaseConfig";
 import useFetchExpenses from "../../hooks/useFetchExpenses";
 import styles from "./Expenses.module.css";
@@ -68,28 +69,37 @@ const Expenses = () => {
           expenseId={selectedExpenseId}
         />
       </Modal>
+      {/* Total expenses */}
+      <header className={styles.header}>
+      <TotalExpenses />
+      </header>
       {/* Expenses list -------------------------- */}
-      <div className={styles.expenseListWrapper}>
-        <div className={styles.expenseListHeader}>
-          <h2 className={styles.title}>Expenses</h2>
-          <Button className={styles.openModalButton} onClick={handleOpenModal}>
-            Add expense
-          </Button>
+      <main>
+        <div className={styles.expenseListWrapper}>
+          <div className={styles.expenseListHeader}>
+            <h2 className={styles.title}>Expenses</h2>
+            <Button
+              className={styles.openModalButton}
+              onClick={handleOpenModal}
+            >
+              Add expense
+            </Button>
+          </div>
+          {loading && <Spinner />}
+          {error && <p className={styles.errorMessage}>{error}</p>}
+          {!loading && (
+            <ExpenseList
+              expenses={expenses}
+              onEdit={(expense) => {
+                setSelectedExpense(expense);
+                setSelectedExpenseId(expense.id);
+                setIsOpen(true);
+              }}
+              openDeleteModal={handleOpenDeleteModal}
+            />
+          )}
         </div>
-        {loading && <Spinner />}
-        {error && <p className={styles.errorMessage}>{error}</p>}
-        {!loading && (
-          <ExpenseList
-            expenses={expenses}
-            onEdit={(expense) => {
-              setSelectedExpense(expense);
-              setSelectedExpenseId(expense.id);
-              setIsOpen(true);
-            }}
-            openDeleteModal={handleOpenDeleteModal}
-          />
-        )}
-      </div>
+      </main>
       {/* Delete modal ----------------------------- */}
       <Modal
         contentClassName={styles.deleteModal}
