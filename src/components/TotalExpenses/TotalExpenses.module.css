@@ -14,7 +14,7 @@
   font-size: var(--font-size-medium);
   font-weight: bold;
 }
-.totalExpensesWrapper .totalAmount {
+.totalExpensesWrapper .amount {
   font-weight: bold;
   font-size: var(--font-size-medium);
 }
@@ -38,7 +38,7 @@
     font-weight: bold;
   }
   .totalExpensesWrapper h3,
-  .totalAmount {
+  .amount {
     font-size: var(--font-size-base);
   }
 }

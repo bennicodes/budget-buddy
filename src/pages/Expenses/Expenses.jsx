@@ -2,10 +2,7 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { useState } from "react";
 import AddExpense from "../../components/AddExpense/AddExpense";
 import Button from "../../components/Button/Button";
-import {
-  default as CategoryPieChart,
-  default as ExpenseChart,
-} from "../../components/ExpenseChart/CategoryPieChart";
+import CategoryPieChart from "../../components/ExpenseChart/CategoryPieChart";
 import ExpenseList from "../../components/ExpenseList/ExpenseList";
 import Modal from "../../components/Modal/Modal";
 import Spinner from "../../components/Spinner/Spinner";
@@ -75,7 +72,7 @@ const Expenses = () => {
       </Modal>
       <header className={styles.header}>
         <div className={styles.totalExpensesWrapper}>
-          <TotalExpenses />
+          <TotalExpenses expenses={expenses} />
         </div>
         <div className={styles.pieChartWrapper}>
           <CategoryPieChart expenses={expenses} />

@@ -1,7 +1,12 @@
 import ExpenseItem from "../ExpenseItem/ExpenseItem";
 import styles from "./ExpenseList.module.css";
 
-const ExpenseList = ({ expenses, onEdit, openDeleteModal }) => {
+const ExpenseList = ({
+  expenses,
+  onEdit,
+  openDeleteModal,
+  showActions = true,
+}) => {
   return (
     <div className={styles.expenseListContainer}>
       <div className={styles.listScrollWrapper}>
@@ -13,7 +18,9 @@ const ExpenseList = ({ expenses, onEdit, openDeleteModal }) => {
                 <th>Category</th>
                 <th>Date</th>
                 <th>Amount</th>
-                <th className={styles.actionHeading}>Actions</th>
+                {showActions && (
+                  <th className={styles.actionHeading}>Actions</th>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -23,6 +30,7 @@ const ExpenseList = ({ expenses, onEdit, openDeleteModal }) => {
                   expense={expense}
                   onEdit={onEdit}
                   openDeleteModal={openDeleteModal}
+                  showActions={showActions}
                 />
               ))}
             </tbody>

@@ -16,7 +16,7 @@ const Home = () => {
     <div className={styles.rootContainer}>
       <header className={styles.header}>
         <div className={styles.totalExpensesWrapper}>
-          <TotalExpenses />
+          <TotalExpenses expenses={expenses} />
         </div>
         <div className={styles.pieChartWrapper}>
           <CategoryPieChart expenses={expenses} />
@@ -24,7 +24,7 @@ const Home = () => {
       </header>
       <main>
         <div className={styles.expensesWrapper}>
-          <ExpenseList expenses={expenses.slice(0, 3)} />
+          <ExpenseList expenses={expenses.slice(0, 3)} showActions={false} />
         </div>
         <div className={styles.calculatorWrapper}>
           <CurrencyCalculator />

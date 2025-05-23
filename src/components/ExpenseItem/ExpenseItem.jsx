@@ -1,7 +1,12 @@
 import Button from "../Button/Button";
 import styles from "./ExpenseItem.module.css";
 
-const ExpenseItem = ({ expense, onEdit, openDeleteModal }) => {
+const ExpenseItem = ({
+  expense,
+  onEdit,
+  openDeleteModal,
+  showActions = true,
+}) => {
   const formattedDate = new Date(expense.date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "numeric",
@@ -16,22 +21,24 @@ const ExpenseItem = ({ expense, onEdit, openDeleteModal }) => {
       <td>{capitalize(expense.category)}</td>
       <td>{formattedDate}</td>
       <td>${expense.amount}</td>
-      <td className={styles.actionContainer}>
-        <Button
-          type="button"
-          className={`${styles.actionButton} ${styles.editButton}`}
-          onClick={() => onEdit(expense)}
-        >
-          Edit
-        </Button>
-        <Button
-          type="button"
-          className={`${styles.actionButton} ${styles.deleteButton}`}
-          onClick={() => openDeleteModal(expense)}
-        >
-          Delete
-        </Button>
-      </td>
+      {showActions && (
+        <td className={styles.actionContainer}>
+          <Button
+            type="button"
+            className={`${styles.actionButton} ${styles.editButton}`}
+            onClick={() => onEdit(expense)}
+          >
+            Edit
+          </Button>
+          <Button
+            type="button"
+            className={`${styles.actionButton} ${styles.deleteButton}`}
+            onClick={() => openDeleteModal(expense)}
+          >
+            Delete
+          </Button>
+        </td>
+      )}
     </tr>
   );
 };
