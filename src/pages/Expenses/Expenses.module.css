@@ -12,6 +12,25 @@
   padding: var(--spacing-xl);
 }
 
+.expensesWrapper .header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+.header .totalExpensesWrapper {
+  width: 100%;
+  flex-grow: 1;
+}
+.header .pieChartWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-large);
+  flex-wrap: nowrap;
+}
+
 .expensesWrapper .expenseListWrapper {
   background-color: var(--secondary-background-color);
   min-height: 300px;
@@ -80,9 +99,29 @@
 }
 
 /* ---------------------------- */
+
+@media screen and (max-width: 800px) {
+  .header {
+    flex-direction: column;
+    gap: var(--spacing-large);
+  }
+  .header .pieChartWrapper {
+    justify-content: center;
+    align-items: center;
+    padding: 0 var(--spacing-medium);
+  }
+}
+
 @media screen and (max-width: 630px) {
   .expensesWrapper {
     padding: var(--spacing-medium);
+  }
+  .header {
+    margin-top: var(--spacing-medium);
+  }
+
+  .header .pieChartWrapper {
+    margin: 0 auto;
   }
   .expensesWrapper .expenseListWrapper {
     padding: var(--spacing-medium);

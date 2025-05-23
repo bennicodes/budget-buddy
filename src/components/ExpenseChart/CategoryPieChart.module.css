@@ -1,0 +1,42 @@
+.pie {
+  width: 100%;
+  max-width: 150px;
+  max-height: 150px;
+  aspect-ratio: 1 / 1; /* Make the pie responsive */
+  border-radius: 50%;
+}
+
+.list {
+  color: var(--secondary-text-color);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 250px;
+}
+
+.list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-small);
+  font-size: var(--font-size-base);
+}
+
+.colorBox {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  border-radius: 4px;
+}
+
+/* Media queries ----------------- */
+@media screen and (max-width: 500px) {
+  .pie {
+    max-width: 100px;
+    max-height: 100px;
+  }
+
+  .list li {
+    font-size: var(--font-size-small);
+  }
+}

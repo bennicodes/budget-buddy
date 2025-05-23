@@ -1,7 +1,7 @@
 .totalExpensesWrapper {
   background-color: var(--secondary-background-color);
   color: var(--text-color);
-  width: 33%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -36,5 +36,9 @@
     padding: var(--spacing-medium) 0;
     border: none;
     font-weight: bold;
+  }
+  .totalExpensesWrapper h3,
+  .totalAmount {
+    font-size: var(--font-size-base);
   }
 }

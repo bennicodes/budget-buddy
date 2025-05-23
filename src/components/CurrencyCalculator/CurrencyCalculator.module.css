@@ -58,14 +58,15 @@
   outline: none;
   border-bottom: 1px solid var(--secondary-text-color);
 }
-.amountDisplay{
-    width: 100%;color: var(--secondary-text-color);
-    width: 100%;
-    height: 32px;
-    padding-left: 4px;
-    border: none;
-    border-bottom: 1px solid hsla(0, 0%, 100%, 0.5);
-    font-size: var(--font-size-medium);
+.amountDisplay {
+  width: 100%;
+  color: var(--secondary-text-color);
+  width: 100%;
+  height: 32px;
+  padding-left: 4px;
+  border: none;
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.5);
+  font-size: var(--font-size-medium);
 }
 
 .currencyDropdown {
@@ -104,4 +105,28 @@
 }
 .switchContainer .switchButton:active {
   transform: scale(0.9);
+}
+
+@media screen and (max-width: 786px) {
+  .calculatorWrapper {
+    padding: var(--spacing-medium);
+  }
+  .calculatorForm {
+    padding: var(--spacing-large) var(--spacing-medium);
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .calculatorTitle {
+    font-size: var(--font-size-medium);
+  }
+  .calculatorForm {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-small);
+  }
+  .switchContainer {
+    margin-top: var(--spacing-large);
+    transform: rotate(90deg);
+  }
 }
