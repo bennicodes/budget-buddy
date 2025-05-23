@@ -5,6 +5,7 @@ import Button from "../../components/Button/Button";
 import CategoryPieChart from "../../components/ExpenseChart/CategoryPieChart";
 import ExpenseList from "../../components/ExpenseList/ExpenseList";
 import Modal from "../../components/Modal/Modal";
+import SortByMonth from "../../components/SortByMonth/SortByMonth";
 import Spinner from "../../components/Spinner/Spinner";
 import TotalExpenses from "../../components/TotalExpenses/TotalExpenses";
 import { database } from "../../firebaseConfig";
@@ -17,6 +18,7 @@ const Expenses = () => {
   const { expenses, loading, error } = useFetchExpenses();
   const [selectedExpense, setSelectedExpense] = useState(null);
   const [selectedExpenseId, setSelectedExpenseId] = useState(null);
+  const [selectedMonth, setSelectedMonth] = useState("");
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [expenseToDelete, setExpenseToDelete] = useState(null);
   const [deleteMessage, setDeleteMessage] = useState("");
@@ -59,6 +61,11 @@ const Expenses = () => {
     }
   };
 
+  const filteredExpenses = expenses.filter((expense) => {
+    const expenseMonth = new Date(expense.date).getMonth() + 1;
+    return expenseMonth === Number(selectedMonth);
+  });
+
   return (
     <div className={styles.expensesWrapper}>
       {/* Add/Edit modal */}
@@ -86,15 +93,22 @@ const Expenses = () => {
             <Button
               className={styles.openModalButton}
               onClick={handleOpenModal}
+              aria-label="Open add expense modal"
             >
               Add expense
             </Button>
+          </div>
+          <div className={styles.filterContainer}>
+            <SortByMonth
+              selectedMonth={selectedMonth}
+              setSelectedMonth={setSelectedMonth}
+            />
           </div>
           {loading && <Spinner />}
           {error && <p className={styles.errorMessage}>{error}</p>}
           {!loading && (
             <ExpenseList
-              expenses={expenses}
+              expenses={selectedMonth ? filteredExpenses : expenses}
               onEdit={(expense) => {
                 setSelectedExpense(expense);
                 setSelectedExpenseId(expense.id);

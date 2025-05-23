@@ -27,6 +27,7 @@ const ExpenseItem = ({
             type="button"
             className={`${styles.actionButton} ${styles.editButton}`}
             onClick={() => onEdit(expense)}
+            aria-label={`Edit ${expense.name} expense`}
           >
             Edit
           </Button>
@@ -34,6 +35,7 @@ const ExpenseItem = ({
             type="button"
             className={`${styles.actionButton} ${styles.deleteButton}`}
             onClick={() => openDeleteModal(expense)}
+            aria-label="Open delete modal"
           >
             Delete
           </Button>

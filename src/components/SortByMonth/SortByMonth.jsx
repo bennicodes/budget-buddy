@@ -1,8 +1,8 @@
-import styles from "./MonthDropdownFilter.module.css";
+import styles from "./SortByMonth.module.css";
 
-const MonthDropdownFilter = ({ selectedMonth, setSelectedMonth }) => {
+const SortByMonth = ({ selectedMonth, setSelectedMonth }) => {
   const months = [
-    { label: "All", value: 0 },
+    { label: "All", value: "" },
     { label: "January", value: 1 },
     { label: "February", value: 2 },
     { label: "March", value: 3 },
@@ -17,7 +17,7 @@ const MonthDropdownFilter = ({ selectedMonth, setSelectedMonth }) => {
     { label: "December", value: 12 },
   ];
   return (
-    <div className={styles.dropdownContainer}>
+    <div className={styles.dropdownWrapper}>
       <label htmlFor="monthFilter" className={styles.label}>
         Filter by Month:
       </label>
@@ -25,7 +25,8 @@ const MonthDropdownFilter = ({ selectedMonth, setSelectedMonth }) => {
         id="monthFilter"
         value={selectedMonth}
         onChange={(e) => setSelectedMonth(Number(e.target.value))}
-        className={styles.selectDropdown}
+        className={styles.monthDropdown}
+        aria-label="Select month to filter expenses"
       >
         {months.map((month) => (
           <option key={month.value} value={month.value}>
@@ -37,4 +38,4 @@ const MonthDropdownFilter = ({ selectedMonth, setSelectedMonth }) => {
   );
 };
 
-export default MonthDropdownFilter;
+export default SortByMonth;
