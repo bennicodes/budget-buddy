@@ -9,46 +9,46 @@
   width: 100%;
   max-height: 400px;
   overflow-y: auto;
+  scrollbar-width: thin;
 }
 /* -------------------- */
 .expenseTable {
   width: 100%;
   padding: var(--spacing-large);
-  border-radius: var(--border-radius-medium);
   border-collapse: collapse;
   position: relative;
 }
 
-thead {
+thead .tableHeadRow {
   background-color: var(--primary-background-color);
   color: var(--secondary-text-color);
   width: 100%;
   padding: var(--spacing-medium) 0;
-  border-radius: var(--border-radius-medium);
-  border: none;
+  border-bottom: none;
   position: sticky;
   top: 0;
   left: 0;
   z-index: 1;
 }
-
-.tableHeadRow {
-  background-color: var(--color-button);
-  color: var(--color-background);
-  border-radius: var(--border-radius-medium);
-  border: none;
+.tableHeadRow th:first-child {
+  border-top-left-radius: var(--border-radius-medium);
+  border-bottom-left-radius: var(--border-radius-medium);
+}
+.tableHeadRow th:last-child {
+  border-top-right-radius: var(--border-radius-medium);
+  border-bottom-right-radius: var(--border-radius-medium);
 }
 
-tr {
-  border-bottom: 1px solid var(--border-color);
-  padding: 0 var(--spacing-small);
+.tableHeadRow th {
+  text-align: start;
 }
 .tableHeadRow .actionHeading {
   text-align: center;
 }
 
-.tableHeadRow th {
-  text-align: start;
+tr {
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 var(--spacing-small);
 }
 
 th,
