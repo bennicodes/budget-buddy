@@ -20,6 +20,7 @@ const SignIn = () => {
     password: "",
   });
   const [resetEmail, setResetEmail] = useState("");
+  const [resetEmailError, setResetEmailError] = useState(false);
   const [resetMessage, setResetMessage] = useState("");
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [error, setError] = useState("");
@@ -63,11 +64,15 @@ const SignIn = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!resetEmail.trim()) {
       setResetMessage("Email is required to reset password");
+      setResetEmailError(true);
       return;
     } else if (!emailRegex.test(resetEmail.trim())) {
       newErrors.email = "Please enter a valid email address";
+      setResetEmailError(true);
       return;
     }
+    setResetEmailError(false);
+
     try {
       await sendPasswordResetEmail(auth, resetEmail);
       setResetMessage("Reset email has been sent. Please check your inbox.");
@@ -169,10 +174,18 @@ const SignIn = () => {
             name="resetEmail"
             id="resetEmail"
             placeholder="Enter your email address"
-            className={styles.resetInput}
+            className={`${styles.resetInput} ${
+              resetEmailError ? styles.resetInputError : ""
+            }`}
             onChange={(e) => setResetEmail(e.target.value)}
             value={resetEmail}
           />
+          {resetMessage && (
+            <ErrorMessage
+              className={styles.resetErrorMessage}
+              message={resetMessage}
+            ></ErrorMessage>
+          )}
           <div className={styles.resetButtonsContainer}>
             <Button
               className={styles.resetPasswordButton}
@@ -188,9 +201,6 @@ const SignIn = () => {
               Close
             </Button>
           </div>
-          {resetMessage && (
-            <p className={styles.errorMessage}>{resetMessage}</p>
-          )}
         </form>
       </Modal>
     </div>

@@ -7,7 +7,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { categories } from "../../data/categories";
-import { database } from "../../firebaseConfig";
+import { auth, database } from "../../firebaseConfig";
 import useAddExpenseValidation from "../../hooks/useAddExpenseValidation";
 import Button from "../Button/Button";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
@@ -42,7 +42,10 @@ const AddExpense = ({
   };
 
   const editExpense = async (expenseId, updatedData) => {
-    const expenseRef = doc(database, "expenses", expenseId);
+    const userId = auth.currentUser?.uid;
+    if (!userId) return;
+
+    const expenseRef = doc(database, "users", userId, "expenses", expenseId);
     await updateDoc(expenseRef, updatedData);
   };
 
@@ -72,6 +75,8 @@ const AddExpense = ({
     if (!validateAddForm(formData)) {
       return;
     }
+
+    // Edit logic ----------------
     if (isEditing) {
       if (!validateAddForm(formData)) return;
 
@@ -93,12 +98,18 @@ const AddExpense = ({
       timer = setTimeout(() => {
         setMessage("");
         closeModal(false);
-      }, 2500);
+      }, 2000);
 
       return;
-    } else {
+    }
+
+    // Add logic -----------------
+    else {
       try {
-        const expensesRef = collection(database, "expenses");
+        const userId = auth.currentUser?.uid;
+        if (!userId) return;
+
+        const expensesRef = collection(database, "users", userId, "expenses");
         await addDoc(expensesRef, {
           name: expenseName,
           amount: expenseAmount,
@@ -119,7 +130,7 @@ const AddExpense = ({
         timer = setTimeout(() => {
           setMessage("");
           closeModal(false);
-        }, 2500);
+        }, 2000);
       } catch (error) {
         setErrorMessage("Failed to add expense.");
         clearTimeout(timer);

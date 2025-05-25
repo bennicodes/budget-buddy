@@ -27,7 +27,8 @@ button {
   --text-color: #000;
   --secondary-text-color: #efeff0;
   --border-color: #357c7c;
-  --error-color: #f04f3d;
+  --error-color: red;
+  --secondary-error-color: orange;
 
   /* Spacing */
   --spacing-small: 0.8rem;

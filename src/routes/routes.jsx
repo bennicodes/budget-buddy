@@ -20,6 +20,7 @@ export const router = createBrowserRouter(
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/verify-email" element={<VerifyEmail />} />
+      <Route path="/contact" element={<Contact />} />
       {/* Protected routes */}
       <Route
         index
@@ -37,14 +38,7 @@ export const router = createBrowserRouter(
           </RouteGuard>
         }
       />
-      <Route
-        path="/contact"
-        element={
-          <RouteGuard>
-            <Contact />
-          </RouteGuard>
-        }
-      />
+
       <Route path="*" element={<h1>404 Not Found</h1>} />
     </Route>
   )

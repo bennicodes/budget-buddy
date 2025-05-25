@@ -24,7 +24,7 @@ const Home = () => {
       </header>
       <main>
         <div className={styles.expensesWrapper}>
-          <ExpenseList expenses={expenses.slice(0, 3)} showActions={false} />
+          <ExpenseList expenses={latestExpenses} showActions={false} />
         </div>
         <div className={styles.calculatorWrapper}>
           <CurrencyCalculator />

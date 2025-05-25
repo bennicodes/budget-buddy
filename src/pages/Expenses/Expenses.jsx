@@ -49,7 +49,7 @@ const Expenses = () => {
     if (!expenseToDelete) return;
     let timer;
     try {
-      await deleteDoc(doc(database, "expenses", expenseToDelete.id));
+      await deleteDoc(doc(database, "users", userId, "expenses", expenseToDelete.id));
       setDeleteMessage(`${expenseToDelete.name} deleted successfully.`);
       timer = setTimeout(() => {
         setDeleteMessage("");
