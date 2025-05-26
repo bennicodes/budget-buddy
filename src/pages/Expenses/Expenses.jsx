@@ -8,7 +8,7 @@ import Modal from "../../components/Modal/Modal";
 import SortByMonth from "../../components/SortByMonth/SortByMonth";
 import Spinner from "../../components/Spinner/Spinner";
 import TotalExpenses from "../../components/TotalExpenses/TotalExpenses";
-import { database } from "../../firebaseConfig";
+import { getAuthInstance, getDatabaseInstance } from "../../firebaseConfig";
 import useFetchExpenses from "../../hooks/useFetchExpenses";
 import styles from "./Expenses.module.css";
 
@@ -49,7 +49,12 @@ const Expenses = () => {
     if (!expenseToDelete) return;
     let timer;
     try {
-      await deleteDoc(doc(database, "users", userId, "expenses", expenseToDelete.id));
+      const database = getDatabaseInstance();
+      const auth = getAuthInstance();
+      const userId = auth.currentUser?.uid;
+      await deleteDoc(
+        doc(database, "users", userId, "expenses", expenseToDelete.id)
+      );
       setDeleteMessage(`${expenseToDelete.name} deleted successfully.`);
       timer = setTimeout(() => {
         setDeleteMessage("");
@@ -74,7 +79,7 @@ const Expenses = () => {
           closeModal={handleCloseModal}
           isEditing={!!selectedExpense}
           existingExpense={selectedExpense}
-          expenseId={selectedExpenseId}
+          expenseId={selectedExpense?.id}
         />
       </Modal>
       <header className={styles.header}>
@@ -111,7 +116,6 @@ const Expenses = () => {
               expenses={selectedMonth ? filteredExpenses : expenses}
               onEdit={(expense) => {
                 setSelectedExpense(expense);
-                setSelectedExpenseId(expense.id);
                 setIsOpen(true);
               }}
               openDeleteModal={handleOpenDeleteModal}

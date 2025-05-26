@@ -137,6 +137,9 @@
   color: var(--error-color);
   animation: shake 0.4s ease-in-out;
 }
+.resetMessage {
+  color: var(--text-color);
+}
 .resetButtonsContainer {
   width: 100%;
   display: flex;

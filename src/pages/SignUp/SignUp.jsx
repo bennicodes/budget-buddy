@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Spinner from "../../components/Spinner/Spinner";
-import { auth, database } from "../../firebaseConfig";
+import { getDatabaseInstance } from "../../firebaseConfig";
 import { useAuth } from "../../hooks/useAuth";
 import { useSignUpValidation } from "../../hooks/useSignUpValidation";
 import styles from "./SignUp.module.css";
@@ -82,7 +82,7 @@ const SignUp = () => {
     }));
   };
 
-  const handleSubmit = async (e, email, password) => {
+  const handleSignUp = async (e, email, password) => {
     e.preventDefault();
     setPasswordError("");
 
@@ -113,7 +113,7 @@ const SignUp = () => {
       const user = userCredential.user;
       console.log("User signed up successfully.");
 
-      await setDoc(doc(database, "users", user.uid), {
+      await setDoc(doc(getDatabaseInstance(), "users", user.uid), {
         uid: user.uid,
         firstname: signUpFormData.firstname,
         lastname: signUpFormData.lastname,
@@ -149,7 +149,7 @@ const SignUp = () => {
       <div className={styles.signUpContainer}>
         <div className={styles.formWrapper}>
           <h1 className={styles.title}>Sign Up</h1>
-          <form className={styles.signUpForm} onSubmit={handleSubmit}>
+          <form className={styles.signUpForm} onSubmit={handleSignUp}>
             <div className={styles.formFieldsRow}>
               <fieldset className={styles.formGroup}>
                 <legend>Personal Information</legend>

@@ -7,7 +7,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { categories } from "../../data/categories";
-import { auth, database } from "../../firebaseConfig";
+import { getAuthInstance, getDatabaseInstance } from "../../firebaseConfig";
 import useAddExpenseValidation from "../../hooks/useAddExpenseValidation";
 import Button from "../Button/Button";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
@@ -42,10 +42,16 @@ const AddExpense = ({
   };
 
   const editExpense = async (expenseId, updatedData) => {
-    const userId = auth.currentUser?.uid;
+    const userId = getAuthInstance().currentUser?.uid;
     if (!userId) return;
 
-    const expenseRef = doc(database, "users", userId, "expenses", expenseId);
+    const expenseRef = doc(
+      getDatabaseInstance(),
+      "users",
+      userId,
+      "expenses",
+      expenseId
+    );
     await updateDoc(expenseRef, updatedData);
   };
 
@@ -106,10 +112,15 @@ const AddExpense = ({
     // Add logic -----------------
     else {
       try {
-        const userId = auth.currentUser?.uid;
+        const userId = getAuthInstance().currentUser?.uid;
         if (!userId) return;
 
-        const expensesRef = collection(database, "users", userId, "expenses");
+        const expensesRef = collection(
+          getDatabaseInstance(),
+          "users",
+          userId,
+          "expenses"
+        );
         await addDoc(expensesRef, {
           name: expenseName,
           amount: expenseAmount,

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-import { auth } from "../../firebaseConfig";
+import { getAuthInstance } from "../../firebaseConfig";
 import styles from "./VerifyEmail.module.css";
 
 const VerifyEmail = () => {
@@ -16,10 +16,10 @@ const VerifyEmail = () => {
 
   useEffect(() => {
     const checkVerificationStatus = async () => {
-      await auth.currentUser.reload();
-      setEmailVerified(auth.currentUser.emailVerified);
+      await getAuthInstance().currentUser.reload();
+      setEmailVerified(getAuthInstance().currentUser.emailVerified);
 
-      if (auth.currentUser.emailVerified) {
+      if (getAuthInstance().currentUser.emailVerified) {
         navigate("/");
       }
     };
@@ -30,7 +30,11 @@ const VerifyEmail = () => {
   const handleResendVerification = async () => {
     setError(null);
     try {
-      await sendEmailVerification(auth.currentUser);
+      const auth = getAuthInstance();
+      const user = auth.currentUser;
+      await user.reload();
+
+      await sendEmailVerification(user);
       setEmailSent(true);
     } catch (error) {
       setError("Failed to resend verification email. Please try again later.");
@@ -45,8 +49,8 @@ const VerifyEmail = () => {
         <div className={styles.verificationContainer}>
           <h2>Check your inbox and verify your email.</h2>
           <p>
-            If you havent recieved the email, click in the link below to request
-            another verification email
+            If you haven´t recieved the email, click in the link below to
+            request another verification email
           </p>
           <div className={styles.bottomContainer}>
             <Button

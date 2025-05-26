@@ -4,7 +4,7 @@ import { signOut } from "firebase/auth";
 import { useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { getAuthContext } from "../../context/AuthContext";
-import { auth } from "../../firebaseConfig";
+import { getAuthInstance } from "../../firebaseConfig";
 import Button from "../Button/Button";
 import styles from "./Navbar.module.css";
 
@@ -33,7 +33,7 @@ const Navbar = () => {
 
   const handleSignOut = async () => {
     try {
-      await signOut(auth);
+      await signOut(getAuthInstance());
       setShowDropdown(false);
       navigate("/sign-in");
       console.log("User signed out");

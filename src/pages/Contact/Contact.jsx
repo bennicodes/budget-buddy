@@ -3,7 +3,7 @@ import { useState } from "react";
 import Button from "../../components/Button/Button";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Modal from "../../components/Modal/Modal";
-import { database } from "../../firebaseConfig";
+import { getDatabaseInstance } from "../../firebaseConfig";
 import useContactValidation from "../../hooks/useContactValidation";
 import styles from "./Contact.module.css";
 
@@ -38,10 +38,13 @@ const Contact = () => {
     }
 
     try {
-      const docRef = await addDoc(collection(database, "contactMessages"), {
-        ...formData,
-        submittedAt: serverTimestamp(),
-      });
+      const docRef = await addDoc(
+        collection(getDatabaseInstance(), "contactMessages"),
+        {
+          ...formData,
+          submittedAt: serverTimestamp(),
+        }
+      );
       setShowContactModal(true);
 
       // Clear form

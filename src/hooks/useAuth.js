@@ -3,7 +3,7 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 import { useState } from "react";
-import { auth } from "../firebaseConfig";
+import { getAuthInstance } from "../firebaseConfig";
 
 export const useAuth = () => {
   const [user, setUser] = useState(null);
@@ -12,7 +12,7 @@ export const useAuth = () => {
   const signUp = async (email, password) => {
     try {
       const userCredentials = await createUserWithEmailAndPassword(
-        auth,
+        getAuthInstance(),
         email,
         password
       );

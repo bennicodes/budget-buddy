@@ -1,6 +1,6 @@
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { auth, database } from "../firebaseConfig";
+import { getAuthInstance, getDatabaseInstance } from "../firebaseConfig";
 
 const useFetchExpenses = () => {
   const [expenses, setExpenses] = useState([]);
@@ -8,7 +8,7 @@ const useFetchExpenses = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const userId = auth.currentUser?.uid;
+    const userId = getAuthInstance().currentUser?.uid;
     if (!userId) {
       setExpenses([]);
       setLoading(false);
@@ -16,7 +16,12 @@ const useFetchExpenses = () => {
     }
 
     setLoading(true);
-    const expenseRef = collection(database, "users", userId, "expenses");
+    const expenseRef = collection(
+      getDatabaseInstance(),
+      "users",
+      userId,
+      "expenses"
+    );
     const q = query(expenseRef, orderBy("createdAt", "desc"));
     // Real time updates
     const unsubscribe = onSnapshot(

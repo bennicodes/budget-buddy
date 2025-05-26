@@ -1,8 +1,6 @@
-const apiKey = import.meta.env.VITE_CURRENCY_API_KEY;
-// TODO: CREATE A SERVER TO HIDE API KEY
-
 export const convertCurrency = async (from, to, amount) => {
-  const url = `https://api.exchangerate.host/convert?access_key=${apiKey}&from=${from}&to=${to}&amount=${amount}`;
+  const url = `http://localhost:3001/api/convert?from=${from}&to=${to}&amount=${amount}`;
+
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -13,8 +11,8 @@ export const convertCurrency = async (from, to, amount) => {
   }
 };
 
-export const getCurrencySymbols = async (from, to, amount) => {
-  const url = `https://api.exchangerate.host/list?access_key=${apiKey}`;
+export const getCurrencySymbols = async () => {
+  const url = `http://localhost:3001/api/symbols`;
   try {
     const response = await fetch(url);
     const data = await response.json();

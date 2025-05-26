@@ -10,7 +10,7 @@ import Button from "../../components/Button/Button";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Modal from "../../components/Modal/Modal";
 import Spinner from "../../components/Spinner/Spinner";
-import { auth } from "../../firebaseConfig";
+import { getAuthInstance } from "../../firebaseConfig";
 import useSignInValidation from "../../hooks/useSignInValidation";
 
 const SignIn = () => {
@@ -22,6 +22,7 @@ const SignIn = () => {
   const [resetEmail, setResetEmail] = useState("");
   const [resetEmailError, setResetEmailError] = useState(false);
   const [resetMessage, setResetMessage] = useState("");
+  const [resetErrorMessage, setResetErrorMessage] = useState("");
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +45,7 @@ const SignIn = () => {
     try {
       setIsLoading(true);
       const userCredential = await signInWithEmailAndPassword(
-        auth,
+        getAuthInstance(),
         signInFormData.email,
         signInFormData.password
       );
@@ -63,7 +64,7 @@ const SignIn = () => {
   const handlePasswordReset = async () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!resetEmail.trim()) {
-      setResetMessage("Email is required to reset password");
+      setResetErrorMessage("Email is required to reset password");
       setResetEmailError(true);
       return;
     } else if (!emailRegex.test(resetEmail.trim())) {
@@ -72,9 +73,10 @@ const SignIn = () => {
       return;
     }
     setResetEmailError(false);
+    setResetErrorMessage("");
 
     try {
-      await sendPasswordResetEmail(auth, resetEmail);
+      await sendPasswordResetEmail(getAuthInstance(), resetEmail);
       setResetMessage("Reset email has been sent. Please check your inbox.");
       setResetEmail("");
     } catch (error) {
@@ -182,9 +184,15 @@ const SignIn = () => {
           />
           {resetMessage && (
             <ErrorMessage
-              className={styles.resetErrorMessage}
+              className={styles.resetMessage}
               message={resetMessage}
-            ></ErrorMessage>
+            />
+          )}
+          {resetErrorMessage && (
+            <ErrorMessage
+              className={styles.resetErrorMessage}
+              message={resetErrorMessage}
+            />
           )}
           <div className={styles.resetButtonsContainer}>
             <Button
