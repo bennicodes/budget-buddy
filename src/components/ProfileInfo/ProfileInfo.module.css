@@ -28,7 +28,7 @@
 }
 
 .verifyButton {
-  max-width: 33%;
+  max-width: 25%;
   padding: 0 var(--spacing-small);
 }
 /* ----------------- */
@@ -90,5 +90,8 @@
   }
   .infoGroup .lastLogin {
     line-break: auto;
+  }
+  .verifyMessage{
+    font-size: var(--font-size-base);
   }
 }
