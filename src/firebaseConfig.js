@@ -5,6 +5,7 @@ import { getFirestore } from "firebase/firestore";
 
 let auth;
 let database;
+
 export const initializeFirebase = async () => {
   try {
     const response = await fetch("http://localhost:3001/api/firebase-config");

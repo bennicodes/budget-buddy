@@ -1,0 +1,6 @@
+.accountWrapper {
+  display: flex;
+  flex-direction: column;
+  /* padding: var(--spacing-large) var(--spacing-large) 0 0; */
+  padding-top: var(--spacing-large);
+}

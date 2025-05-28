@@ -4,8 +4,6 @@ import styles from "./App.module.css";
 import Navbar from "./components/Navbar/Navbar";
 
 function App() {
-  // State variables
-
   return (
     <div className={styles.rootContainer}>
       <header className={styles.header}>

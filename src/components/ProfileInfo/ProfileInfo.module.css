@@ -1,0 +1,67 @@
+.profileInfoWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-medium);
+}
+
+.profileInfoWrapper fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-large);
+  padding: var(--spacing-large);
+  border-radius: var(--border-radius-medium);
+}
+.profileTitle {
+  font-size: var(--font-size-large);
+  color: var(--primary-text-color);
+}
+
+.infoGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-small);
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-small);
+  border-radius: var(--border-radius-medium);
+}
+
+.verifyButton {
+  max-width: 33%;
+  padding: 0 var(--spacing-small);
+}
+/* ----------------- */
+
+@media screen and (max-width: 850px) {
+  .verifyButton {
+    max-width: 50%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .profileInfoWrapper {
+    padding: 0;
+  }
+  .verifyButton {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .profileInfoWrapper fieldset {
+    padding: var(--spacing-small);
+  }
+  .profileTitle {
+    font-size: var(--font-size-medium);
+  }
+  .infoGroup{
+    padding: var(--spacing-small);
+    font-size: var(--font-size-small);
+  }
+  .infoGroup p {
+    line-break: anywhere;
+  }
+  .infoGroup .lastLogin{
+    line-break: auto;
+  }
+}

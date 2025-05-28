@@ -6,6 +6,7 @@ import {
 // import elements
 import App from "../App";
 import RouteGuard from "../components/auth/RouteGuard";
+import Account from "../pages/Account/Account";
 import Contact from "../pages/Contact/Contact";
 import Expenses from "../pages/Expenses/Expenses";
 import Home from "../pages/Home/Home";
@@ -35,6 +36,14 @@ export const router = createBrowserRouter(
         element={
           <RouteGuard>
             <Expenses />
+          </RouteGuard>
+        }
+      />
+      <Route
+        path="/account"
+        element={
+          <RouteGuard>
+            <Account />
           </RouteGuard>
         }
       />
