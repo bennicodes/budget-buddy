@@ -32,6 +32,33 @@
   padding: 0 var(--spacing-small);
 }
 /* ----------------- */
+.verifyModalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-medium);
+  gap: var(--spacing-medium);
+}
+.verifyMessage {
+  color: var(--text-color);
+  font-size: var(--font-size-medium);
+  padding: var(--spacing-medium);
+}
+.closeButton {
+  padding: 0 var(--spacing-small);
+}
+/* ------------------ */
+.errorMessage {
+  color: var(--secondary-error-color);
+  font-size: var(--font-size-medium);
+  font-weight: bold;
+  text-align: center;
+}
+
+.spinner {
+  border-top: 0.5rem solid var(--primary-background-color);
+}
+/* ----------------- */
 
 @media screen and (max-width: 850px) {
   .verifyButton {
@@ -54,14 +81,14 @@
   .profileTitle {
     font-size: var(--font-size-medium);
   }
-  .infoGroup{
+  .infoGroup {
     padding: var(--spacing-small);
     font-size: var(--font-size-small);
   }
   .infoGroup p {
     line-break: anywhere;
   }
-  .infoGroup .lastLogin{
+  .infoGroup .lastLogin {
     line-break: auto;
   }
 }
