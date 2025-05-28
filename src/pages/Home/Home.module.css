@@ -46,6 +46,25 @@
   overflow-y: auto;
 }
 
+/* ------------------ */
+.spinnerWrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.noDataMessage {
+  color: var(--secondary-text-color);
+  text-align: center;
+  font-size: var(--font-size-medium);
+  margin: auto;
+}
+
 @media screen and (max-width: 768px) {
   .header {
     flex-direction: column;
@@ -53,7 +72,7 @@
     padding: var(--spacing-large) var(--spacing-medium);
   }
   .expensesWrapper {
-  padding: var(--spacing-large) var(--spacing-medium);
+    padding: var(--spacing-large) var(--spacing-medium);
     margin: 0 var(--spacing-large);
   }
 }

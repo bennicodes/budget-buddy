@@ -13,7 +13,6 @@ import useFetchExpenses from "../../hooks/useFetchExpenses";
 import styles from "./Expenses.module.css";
 
 const Expenses = () => {
-  // State variables
   const [isOpen, setIsOpen] = useState(false);
   const { expenses, loading, error } = useFetchExpenses();
   const [selectedExpense, setSelectedExpense] = useState(null);
@@ -72,89 +71,99 @@ const Expenses = () => {
   });
 
   return (
-    <div className={styles.expensesWrapper}>
-      {/* Add/Edit modal */}
-      <Modal contentClassName={styles.addExpenseModal} isOpen={isOpen}>
-        <AddExpense
-          closeModal={handleCloseModal}
-          isEditing={!!selectedExpense}
-          existingExpense={selectedExpense}
-          expenseId={selectedExpense?.id}
-        />
-      </Modal>
-      <header className={styles.header}>
-        <div className={styles.totalExpensesWrapper}>
-          <TotalExpenses expenses={expenses} />
-        </div>
-        <div className={styles.pieChartWrapper}>
-          <CategoryPieChart expenses={expenses} />
-        </div>
-      </header>
-      {/* Expenses list -------------------------- */}
-      <main>
-        <div className={styles.expenseListWrapper}>
-          <div className={styles.expenseListHeader}>
-            <h2 className={styles.title}>Expenses</h2>
-            <Button
-              className={styles.openModalButton}
-              onClick={handleOpenModal}
-              aria-label="Open add expense modal"
-            >
-              Add expense
-            </Button>
-          </div>
-          <div className={styles.filterContainer}>
-            <SortByMonth
-              selectedMonth={selectedMonth}
-              setSelectedMonth={setSelectedMonth}
+    <>
+      {loading ? (
+        <Spinner wrapperClassName={styles.spinnerWrapper} />
+      ) : (
+        <div className={styles.expensesWrapper}>
+          {/* Add/Edit modal */}
+          <Modal contentClassName={styles.addExpenseModal} isOpen={isOpen}>
+            <AddExpense
+              closeModal={handleCloseModal}
+              isEditing={!!selectedExpense}
+              existingExpense={selectedExpense}
+              expenseId={selectedExpense?.id}
             />
-          </div>
-          {loading && <Spinner />}
-          {error && <p className={styles.errorMessage}>{error}</p>}
-          {!loading && (
-            <ExpenseList
-              expenses={selectedMonth ? filteredExpenses : expenses}
-              onEdit={(expense) => {
-                setSelectedExpense(expense);
-                setIsOpen(true);
-              }}
-              openDeleteModal={handleOpenDeleteModal}
-            />
-          )}
-        </div>
-      </main>
-      {/* Delete modal ----------------------------- */}
-      <Modal
-        contentClassName={styles.deleteModal}
-        isOpen={isDeleteOpen}
-        closeModal={handleCloseDeleteModal}
-      >
-        <h2 className={styles.deleteTitle}>Confirm Delete</h2>
-        <p className={styles.deleteMessage}>
-          Are you sure you want to delete{" "}
-          <strong>"{expenseToDelete?.name}"</strong>?
-        </p>
-        <div className={styles.buttonContainer}>
-          <Button
-            type="button"
-            onClick={handleConfirmDelete}
-            className={`${styles.button} ${styles.confirm}`}
+          </Modal>
+
+          {/* Header */}
+          <header className={styles.header}>
+            <div className={styles.totalExpensesWrapper}>
+              <TotalExpenses expenses={expenses} />
+            </div>
+            <div className={styles.pieChartWrapper}>
+              <CategoryPieChart expenses={expenses} />
+            </div>
+          </header>
+
+          {/* Expense list */}
+          <main>
+            {error ? (
+              <p className={styles.errorMessage}>{error}</p>
+            ) : (
+              <div className={styles.expenseListWrapper}>
+                <div className={styles.expenseListHeader}>
+                  <h2 className={styles.title}>Expenses</h2>
+                  <Button
+                    className={styles.openModalButton}
+                    onClick={handleOpenModal}
+                    aria-label="Open add expense modal"
+                  >
+                    Add expense
+                  </Button>
+                </div>
+                <div className={styles.filterContainer}>
+                  <SortByMonth
+                    selectedMonth={selectedMonth}
+                    setSelectedMonth={setSelectedMonth}
+                  />
+                </div>
+                <ExpenseList
+                  expenses={selectedMonth ? filteredExpenses : expenses}
+                  onEdit={(expense) => {
+                    setSelectedExpense(expense);
+                    setIsOpen(true);
+                  }}
+                  openDeleteModal={handleOpenDeleteModal}
+                />
+              </div>
+            )}
+          </main>
+
+          {/* Delete modal */}
+          <Modal
+            contentClassName={styles.deleteModal}
+            isOpen={isDeleteOpen}
+            closeModal={handleCloseDeleteModal}
           >
-            Delete
-          </Button>
-          <Button
-            type="button"
-            onClick={handleCloseDeleteModal}
-            className={`${styles.button} ${styles.cancel}`}
-          >
-            Cancel
-          </Button>
+            <h2 className={styles.deleteTitle}>Confirm Delete</h2>
+            <p className={styles.deleteMessage}>
+              Are you sure you want to delete{" "}
+              <strong>"{expenseToDelete?.name}"</strong>?
+            </p>
+            <div className={styles.buttonContainer}>
+              <Button
+                type="button"
+                onClick={handleConfirmDelete}
+                className={`${styles.button} ${styles.confirm}`}
+              >
+                Delete
+              </Button>
+              <Button
+                type="button"
+                onClick={handleCloseDeleteModal}
+                className={`${styles.button} ${styles.cancel}`}
+              >
+                Cancel
+              </Button>
+            </div>
+            {deleteMessage && (
+              <p className={styles.deleteMessage}>{deleteMessage}</p>
+            )}
+          </Modal>
         </div>
-        {deleteMessage && (
-          <p className={styles.deleteMessage}>{deleteMessage}</p>
-        )}
-      </Modal>
-    </div>
+      )}
+    </>
   );
 };
 

@@ -105,6 +105,17 @@
   background-color: var(--secondary-button-color);
   color: white;
 }
+/* Spinner */
+.spinnerWrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
 
 /* ---------------------------- */
 

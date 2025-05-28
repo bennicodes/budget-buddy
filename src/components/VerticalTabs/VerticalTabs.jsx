@@ -3,7 +3,7 @@ import styles from "./VerticalTabs.module.css";
 
 const VerticalTabs = ({ tabs }) => {
   const [activeIndex, setActiveIndex] = useState(0);
-  
+
   return (
     <div className={styles.tabsWrapper}>
       {/* Tabs sidebar */}

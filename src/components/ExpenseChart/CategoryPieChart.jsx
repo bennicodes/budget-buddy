@@ -1,72 +1,87 @@
+import { useEffect, useState } from "react";
 import styles from "./CategoryPieChart.module.css";
 
 const CategoryPieChart = ({ expenses }) => {
-  if (!expenses || expenses.length === 0) return <p>No data to display.</p>;
+  const [message, setMessage] = useState("");
+  const [pieStyle, setPieStyle] = useState({});
+  const [legendData, setLegendData] = useState([]);
 
-  // Count number of expenses per category
-  const categoryCounts = expenses.reduce((categoryCounts, expense) => {
-    categoryCounts[expense.category] =
-      (categoryCounts[expense.category] || 0) + 1;
-    return categoryCounts;
-  }, {});
+  useEffect(() => {
+    if (!expenses || expenses.length === 0) {
+      setMessage("No data to display.");
+      setPieStyle({});
+      setLegendData([]);
+      return;
+    }
 
-  // Total number of expenses
-  const total = expenses.length;
+    setMessage(""); // Clear any previous message
 
-  // Generate pie slices as conic-gradient segments
-  const categories = Object.entries(categoryCounts);
-  let currentAngle = 0;
-  const colorMap = {};
-  const pieSegments = [];
-  const legendData = [];
-  const colors = [
-    "#ff6384",
-    "#36a2eb",
-    "#ffcd56",
-    "#4bc0c0",
-    "#9966ff",
-    "#ff9f40",
-  ];
+    // Count expenses by category
+    const categoryCounts = expenses.reduce((counts, expense) => {
+      counts[expense.category] = (counts[expense.category] || 0) + 1;
+      return counts;
+    }, {});
 
-  categories.forEach(([category, count], index) => {
-    const percentage = (count / total) * 100;
-    const startAngle = currentAngle;
-    const endAngle = currentAngle + percentage * 3.6;
-    currentAngle = endAngle;
+    const total = expenses.length;
+    const categories = Object.entries(categoryCounts);
 
-    const color = colors[index % colors.length];
-    colorMap[category] = color;
+    let currentAngle = 0;
+    const colors = [
+      "#ff6384",
+      "#36a2eb",
+      "#ffcd56",
+      "#4bc0c0",
+      "#9966ff",
+      "#ff9f40",
+    ];
 
-    pieSegments.push(`${color} ${startAngle}deg ${endAngle}deg`);
-    legendData.push({
-      category,
-      percentage: percentage.toFixed(1),
-      color,
+    const pieSegments = [];
+    const legend = [];
+
+    categories.forEach(([category, count], index) => {
+      const percentage = (count / total) * 100;
+      const startAngle = currentAngle;
+      const endAngle = currentAngle + percentage * 3.6;
+      currentAngle = endAngle;
+
+      const color = colors[index % colors.length];
+
+      pieSegments.push(`${color} ${startAngle}deg ${endAngle}deg`);
+      legend.push({
+        category,
+        percentage: percentage.toFixed(1),
+        color,
+      });
     });
-  });
 
-  const pieStyle = {
-    background: `conic-gradient(${pieSegments.join(", ")})`,
-  };
+    setPieStyle({
+      background: `conic-gradient(${pieSegments.join(", ")})`,
+    });
+    setLegendData(legend);
+  }, [expenses]);
 
   return (
     <>
-      <div className={styles.pie} style={pieStyle}></div>
-      <ul className={styles.list}>
-        {legendData.map(({ category, percentage, color }) => (
-          <li key={category}>
-            <span
-              className={styles.colorBox}
-              style={{ backgroundColor: color }}
-            ></span>
-            {category.charAt(0).toUpperCase() + category.slice(1)} –{" "}
-            {percentage}%
-          </li>
-        ))}
-      </ul>
+      {message ? (
+        <p className={styles.message}>{message}</p>
+      ) : (
+        <>
+          <div className={styles.pie} style={pieStyle}></div>
+          <ul className={styles.list}>
+            {legendData.map(({ category, percentage, color }) => (
+              <li key={category}>
+                <span
+                  className={styles.colorBox}
+                  style={{ backgroundColor: color }}
+                ></span>
+                {category.charAt(0).toUpperCase() + category.slice(1)} –{" "}
+                {percentage}%
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </>
-    // <div className={styles.wrapper}>
-    // </div>
   );
 };
 

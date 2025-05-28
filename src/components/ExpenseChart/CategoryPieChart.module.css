@@ -29,6 +29,10 @@
   border-radius: 4px;
 }
 
+.message {
+  color: var(--secondary-text-color);
+}
+
 /* Media queries ----------------- */
 @media screen and (max-width: 500px) {
   .pie {

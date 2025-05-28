@@ -58,51 +58,54 @@ const ProfileInfo = () => {
   return (
     <div className={styles.profileInfoWrapper}>
       {isLoading ? (
-        <Spinner />
+        <Spinner wrapperClassName={styles.spinnerWrapper} />
       ) : (
         <>
-          {error ? (
-            <p className={styles.errorMessage}>{error}</p>
-          ) : (
-            <fieldset>
-              <legend className={styles.profileTitle}>Profile Info</legend>
+          <fieldset>
+            <legend className={styles.profileTitle}>Profile Info</legend>
+            {error ? (
+              <p className={styles.errorMessage}>{error}</p>
+            ) : (
+              <>
+                <div className={styles.infoGroup}>
+                  <label className={styles.label}>First Name:</label>
+                  <p>{userData?.firstname}</p>
+                </div>
+                <div className={styles.infoGroup}>
+                  <label className={styles.label}>Last Name:</label>
+                  <p>{userData?.lastname}</p>
+                </div>
 
-              <div className={styles.infoGroup}>
-                <label className={styles.label}>First Name:</label>
-                <p>{userData?.firstname}</p>
-              </div>
-              <div className={styles.infoGroup}>
-                <label className={styles.label}>Last Name:</label>
-                <p>{userData?.lastname}</p>
-              </div>
+                <div className={styles.infoGroup}>
+                  <label className={styles.label}>Email:</label>
+                  <p>{userData?.email}</p>
+                </div>
 
-              <div className={styles.infoGroup}>
-                <label className={styles.label}>Email:</label>
-                <p>{userData?.email}</p>
-              </div>
+                <div className={styles.infoGroup}>
+                  <label className={styles.label}>Verification Status:</label>
+                  <p className={styles.verificationStatus}>
+                    {userData?.emailVerified
+                      ? "Verified ✅"
+                      : "Not Verified ❌"}
+                  </p>
+                  {!userData?.emailVerified && (
+                    <Button
+                      className={styles.verifyButton}
+                      onClick={handleSendVerification}
+                      aria-label="Send email verification"
+                    >
+                      Send Verification
+                    </Button>
+                  )}
+                </div>
 
-              <div className={styles.infoGroup}>
-                <label className={styles.label}>Verification Status:</label>
-                <p className={styles.verificationStatus}>
-                  {userData?.emailVerified ? "Verified ✅" : "Not Verified ❌"}
-                </p>
-                {!userData?.emailVerified && (
-                  <Button
-                    className={styles.verifyButton}
-                    onClick={handleSendVerification}
-                    aria-label="Send email verification"
-                  >
-                    Send Verification
-                  </Button>
-                )}
-              </div>
-
-              <div className={styles.infoGroup}>
-                <label className={styles.label}>Last login:</label>
-                <p className={styles.lastLogin}>{userData?.lastLogin}</p>
-              </div>
-            </fieldset>
-          )}
+                <div className={styles.infoGroup}>
+                  <label className={styles.label}>Last login:</label>
+                  <p className={styles.lastLogin}>{userData?.lastLogin}</p>
+                </div>
+              </>
+            )}
+          </fieldset>
           <Modal isOpen={isOpen} contentClassName={styles.verifyModalContent}>
             {isSendingVerification ? (
               <Spinner spinnerClassName={styles.spinner} />
