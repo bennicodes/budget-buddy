@@ -7,9 +7,9 @@ const ExpenseItem = ({
   openDeleteModal,
   showActions = true,
 }) => {
-  const formattedDate = new Date(expense.date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "numeric",
+  const formattedDate = new Date(expense.date).toLocaleDateString("en-GB", {
+    year: "2-digit",
+    month: "2-digit",
     day: "numeric",
   });
 

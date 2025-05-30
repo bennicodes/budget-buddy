@@ -21,14 +21,11 @@
 }
 
 .formWrapper {
-  background-color: var(--secondary-background-color);
-  color: var(--text-color);
+  color: var(--secondary-background-color);
   width: 75%;
   max-height: 900;
   height: auto;
-  border-radius: var(--border-radius-medium);
   padding: var(--spacing-large);
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
 }
 
@@ -66,7 +63,7 @@
 .formGroup {
   flex: 1;
   min-width: 300px;
-  border: 2px solid var(--primary-background-color);
+  border: 1px solid var(--secondary-background-color);
   border-radius: var(--border-radius-medium);
   padding: var(--spacing-large);
 }
@@ -87,7 +84,7 @@
   padding-top: var(--spacing-small);
 }
 .passwordErrorMessage {
-  color: var(--error-color);
+  color: var(--secondary-error-color);
   font-size: var(--font-size-small);
   padding: 0;
 }
@@ -95,18 +92,18 @@
   height: 32px;
   width: 100%;
   background-color: transparent;
-  color: var(--text-color);
+  color: var(--secondary-text-color);
   border: none;
-  border-bottom: 1px solid var(--primary-background-color);
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.5);
   padding: 0;
   font-size: var(--font-size-base);
 }
 .inputGroup input:focus {
   outline: none;
-  border-bottom: 2px solid var(--primary-background-color);
+  border-bottom: 1px solid hsla(0, 0%, 100%, 1);
 }
 .inputGroup input::placeholder {
-  color: var(--text-color);
+  color: var(--secondary-text-color);
   opacity: 0.5;
 }
 .signUpForm .term {
@@ -118,8 +115,9 @@
 }
 
 .signUpErrorMessage {
-  color: var(--error-color);
-  font-size: var(--font-size-base);
+  width: 100%;
+  color: var(--secondary-error-color);
+  font-size: var(--font-size-small);
   padding: 0;
   margin: 0 auto;
 }

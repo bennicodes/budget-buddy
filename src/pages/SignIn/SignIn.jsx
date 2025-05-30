@@ -1,7 +1,4 @@
-import {
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./SignIn.module.css";
@@ -11,6 +8,7 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import Modal from "../../components/Modal/Modal";
 import Spinner from "../../components/Spinner/Spinner";
 import { getAuthInstance } from "../../firebaseConfig";
+import { useAuth } from "../../hooks/useAuth";
 import useSignInValidation from "../../hooks/useSignInValidation";
 
 const SignIn = () => {
@@ -24,10 +22,8 @@ const SignIn = () => {
   const [resetMessage, setResetMessage] = useState("");
   const [resetErrorMessage, setResetErrorMessage] = useState("");
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
-  // Validation
+  const { signIn, signInErrors: authErrors, isLoading } = useAuth();
   const { validateSignIn, signInErrors } = useSignInValidation();
 
   const navigate = useNavigate();
@@ -43,9 +39,7 @@ const SignIn = () => {
     if (!validateSignIn(signInFormData)) return;
 
     try {
-      setIsLoading(true);
-      const userCredential = await signInWithEmailAndPassword(
-        getAuthInstance(),
+      const userCredential = await signIn(
         signInFormData.email,
         signInFormData.password
       );
@@ -53,15 +47,14 @@ const SignIn = () => {
       navigate("/");
       console.log("Sign in successful");
     } catch (error) {
-      setError("Invalid email or password.");
       console.log("Error signing in:", error.message);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   // Reset password
-  const handlePasswordReset = async () => {
+  const handlePasswordReset = async (e) => {
+    e.preventDefault();
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!resetEmail.trim()) {
       setResetErrorMessage("Email is required to reset password");
@@ -94,7 +87,7 @@ const SignIn = () => {
   return (
     <div className={styles.signInWrapper}>
       <form className={styles.signInForm} onSubmit={handleSignIn} noValidate>
-        <h1 className={styles.title}>Log in</h1>
+        <h1 className={styles.title}>Sign in</h1>
         <div className={styles.inputsContainer}>
           <div className={styles.inputGroup}>
             <label htmlFor="email">Email</label>
@@ -131,8 +124,11 @@ const SignIn = () => {
             )}
           </div>
         </div>
-        {error && (
-          <ErrorMessage className={styles.signInErrorMessage} message={error} />
+        {authErrors && (
+          <ErrorMessage
+            className={styles.signInErrorMessage}
+            message={authErrors}
+          />
         )}
         <Button className={styles.signInButton} type="submit">
           {/* Show spinner when loading */}
@@ -198,6 +194,7 @@ const SignIn = () => {
             <Button
               className={styles.resetPasswordButton}
               onClick={handlePasswordReset}
+              type="submit"
             >
               Reset Password
             </Button>

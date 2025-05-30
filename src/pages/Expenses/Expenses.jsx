@@ -46,7 +46,7 @@ const Expenses = () => {
 
   const handleConfirmDelete = async () => {
     if (!expenseToDelete) return;
-    let timer;
+
     try {
       const database = getDatabaseInstance();
       const auth = getAuthInstance();
@@ -54,14 +54,9 @@ const Expenses = () => {
       await deleteDoc(
         doc(database, "users", userId, "expenses", expenseToDelete.id)
       );
-      setDeleteMessage(`${expenseToDelete.name} deleted successfully.`);
-      timer = setTimeout(() => {
-        setDeleteMessage("");
-        handleCloseDeleteModal();
-      }, 2500);
+      handleCloseDeleteModal();
     } catch (error) {
       setDeleteMessage("Failed to delete expense.");
-      clearTimeout(timer);
     }
   };
 

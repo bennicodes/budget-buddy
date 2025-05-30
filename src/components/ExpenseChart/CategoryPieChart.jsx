@@ -4,13 +4,13 @@ import styles from "./CategoryPieChart.module.css";
 const CategoryPieChart = ({ expenses }) => {
   const [message, setMessage] = useState("");
   const [pieStyle, setPieStyle] = useState({});
-  const [legendData, setLegendData] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
 
   useEffect(() => {
     if (!expenses || expenses.length === 0) {
       setMessage("No data to display.");
       setPieStyle({});
-      setLegendData([]);
+      setCategoryData([]);
       return;
     }
 
@@ -57,18 +57,18 @@ const CategoryPieChart = ({ expenses }) => {
     setPieStyle({
       background: `conic-gradient(${pieSegments.join(", ")})`,
     });
-    setLegendData(legend);
+    setCategoryData(legend);
   }, [expenses]);
 
   return (
-    <>
+    <div className={styles.pieChartWrapper}>
       {message ? (
         <p className={styles.message}>{message}</p>
       ) : (
-        <>
+        <div className={styles.pieChart}>
           <div className={styles.pie} style={pieStyle}></div>
           <ul className={styles.list}>
-            {legendData.map(({ category, percentage, color }) => (
+            {categoryData.map(({ category, percentage, color }) => (
               <li key={category}>
                 <span
                   className={styles.colorBox}
@@ -79,9 +79,14 @@ const CategoryPieChart = ({ expenses }) => {
               </li>
             ))}
           </ul>
-        </>
+        </div>
       )}
-    </>
+      {categoryData.length > 0 && (
+        <p className={styles.description}>
+          This chart shows how many expenses fall under each category.
+        </p>
+      )}
+    </div>
   );
 };
 

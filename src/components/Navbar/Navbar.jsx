@@ -1,10 +1,8 @@
 import { faBars, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { signOut } from "firebase/auth";
 import { useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { getAuthContext } from "../../context/AuthContext";
-import { getAuthInstance } from "../../firebaseConfig";
+import { useAuth } from "../../hooks/useAuth";
 import Button from "../Button/Button";
 import styles from "./Navbar.module.css";
 
@@ -13,7 +11,7 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownTimer = useRef(null);
 
-  const { user } = getAuthContext();
+  const { user, signOut } = useAuth();
   const navigate = useNavigate();
 
   const handleMouseEnter = () => {
@@ -33,7 +31,7 @@ const Navbar = () => {
 
   const handleSignOut = async () => {
     try {
-      await signOut(getAuthInstance());
+      await signOut();
       setShowDropdown(false);
       navigate("/sign-in");
       console.log("User signed out");

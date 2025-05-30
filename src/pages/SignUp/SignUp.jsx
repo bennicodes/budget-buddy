@@ -1,6 +1,6 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { addDoc, doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
@@ -149,7 +149,11 @@ const SignUp = () => {
       <div className={styles.signUpContainer}>
         <div className={styles.formWrapper}>
           <h1 className={styles.title}>Sign Up</h1>
-          <form className={styles.signUpForm} onSubmit={handleSignUp}>
+          <form
+            className={styles.signUpForm}
+            onSubmit={handleSignUp}
+            noValidate
+          >
             <div className={styles.formFieldsRow}>
               <fieldset className={styles.formGroup}>
                 <legend>Personal Information</legend>
@@ -164,7 +168,10 @@ const SignUp = () => {
                     placeholder="John"
                   />
                   {errors?.firstname && (
-                    <ErrorMessage message={errors.firstname} />
+                    <ErrorMessage
+                      className={styles.signUpErrorMessage}
+                      message={errors.firstname}
+                    />
                   )}
                 </div>
                 <div className={styles.inputGroup}>
@@ -178,7 +185,10 @@ const SignUp = () => {
                     placeholder="Smith"
                   />
                   {errors?.lastname && (
-                    <ErrorMessage message={errors.lastname} />
+                    <ErrorMessage
+                      className={styles.signUpErrorMessage}
+                      message={errors.lastname}
+                    />
                   )}
                 </div>
                 <div className={styles.inputGroup}>
@@ -191,7 +201,10 @@ const SignUp = () => {
                     value={signUpFormData.dateOfBirth}
                   />
                   {errors?.dateOfBirth && (
-                    <ErrorMessage message={errors.dateOfBirth} />
+                    <ErrorMessage
+                      className={styles.signUpErrorMessage}
+                      message={errors.dateOfBirth}
+                    />
                   )}
                 </div>
               </fieldset>
@@ -207,7 +220,12 @@ const SignUp = () => {
                     value={signUpFormData.email}
                     placeholder="you@example.com"
                   />
-                  {errors?.email && <ErrorMessage message={errors.email} />}
+                  {errors?.email && (
+                    <ErrorMessage
+                      className={styles.signUpErrorMessage}
+                      message={errors.email}
+                    />
+                  )}
                 </div>
                 <div className={`${styles.inputGroup} ${styles.passwordGroup}`}>
                   <label htmlFor="password">Password</label>
@@ -232,7 +250,10 @@ const SignUp = () => {
                     </p>
                   )}
                   {errors?.password && (
-                    <ErrorMessage message={errors.password} />
+                    <ErrorMessage
+                      className={styles.signUpErrorMessage}
+                      message={errors.password}
+                    />
                   )}
                 </div>
                 <div className={styles.inputGroup}>
@@ -249,10 +270,16 @@ const SignUp = () => {
                   />
                   {touchedPasswordInput.confirmPassword &&
                     passwordError === "Passwords do not match" && (
-                      <ErrorMessage message={passwordError} />
+                      <ErrorMessage
+                        className={styles.signUpErrorMessage}
+                        message={passwordError}
+                      />
                     )}
                   {errors?.confirmPassword && (
-                    <ErrorMessage message={errors.confirmPassword} />
+                    <ErrorMessage
+                      className={styles.signUpErrorMessage}
+                      message={errors.confirmPassword}
+                    />
                   )}
                 </div>
               </fieldset>
@@ -266,7 +293,12 @@ const SignUp = () => {
                 checked={signUpFormData.terms}
               />
               <label htmlFor="terms">I agree to the terms and conditions</label>
-              {errors?.terms && <ErrorMessage message={errors.terms} />}
+              {errors?.terms && (
+                <ErrorMessage
+                  className={styles.signUpErrorMessage}
+                  message={errors.terms}
+                />
+              )}
               {signUpErrors && (
                 <ErrorMessage
                   message={signUpErrors}
