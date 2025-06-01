@@ -89,13 +89,6 @@
   animation: shake 0.4s ease-in-out;
 }
 
-.spinnerWrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .signInForm .signInButton .spinnerCircle {
   width: 24px;
   height: 24px;

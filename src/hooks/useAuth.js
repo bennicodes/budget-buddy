@@ -1,9 +1,12 @@
 import {
   createUserWithEmailAndPassword,
   signOut as firebaseSignOut,
+  reauthenticateWithCredential,
   sendEmailVerification,
   signInWithEmailAndPassword,
+  updatePassword,
 } from "firebase/auth";
+import { EmailAuthProvider } from "firebase/auth/web-extension";
 import { useState } from "react";
 import { getAuthContext } from "../context/AuthContext";
 import { getAuthInstance } from "../firebaseConfig";
@@ -15,6 +18,7 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [signUpErrors, setSignUpErrors] = useState(null);
   const [signInErrors, setSignInErrors] = useState(null);
+  const [changePasswordErrors, setChangePasswordErrors] = useState(null);
 
   // Sign Up
   const signUp = async (email, password) => {
@@ -78,6 +82,41 @@ export const useAuth = () => {
     }
   };
 
+  const changePassword = async (currentPassword, newPassword) => {
+    if (!user || !user.email) {
+      throw new Error("Couldn't find user. Please try again later.");
+    }
+
+    const userCredential = EmailAuthProvider.credential(
+      user.email,
+      currentPassword
+    );
+
+    setIsLoading(true);
+    try {
+      await reauthenticateWithCredential(user, userCredential);
+      await updatePassword(user, newPassword);
+    } catch (error) {
+      console.error("Error changing password:", error);
+
+      // Message if user types incorrect password
+      if (
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/invalid-credential"
+      ) {
+        throw {
+          code: error.code,
+          message: "Incorrect current password",
+        };
+      } else {
+        throw {
+          error: error.code,
+          message: "An unexpected error occurred. Please try again.",
+        };
+      }
+    }
+  };
+
   return {
     user,
     isLoading,
@@ -86,5 +125,6 @@ export const useAuth = () => {
     signIn,
     signInErrors,
     signOut,
+    changePassword,
   };
 };

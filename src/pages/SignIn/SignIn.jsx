@@ -133,10 +133,7 @@ const SignIn = () => {
         <Button className={styles.signInButton} type="submit">
           {/* Show spinner when loading */}
           {isLoading ? (
-            <Spinner
-              wrapperClassName={styles.spinnerWrapper}
-              spinnerClassName={styles.spinnerCircle}
-            />
+            <Spinner spinnerClassName={styles.spinnerCircle} />
           ) : (
             "Sign in"
           )}
