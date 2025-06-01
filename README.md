@@ -28,6 +28,14 @@ This application showcases the use of modern frontend development techniques and
 - Custom hooks and component-based architecture
 - Deployed on Netlify
 
+## Accessibility
+
+- GitHub:
+  https://github.com/bennicodes/budget-buddy
+
+- Netlify link:
+  https://budgetbuddy-online.netlify.app/
+
 ## License
 
 This project is not open-source under a standard license like MIT. However, the code and design may be reused or shared **with prior written permission** from the author.
