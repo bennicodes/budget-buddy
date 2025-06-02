@@ -1,4 +1,3 @@
-// firebase-config.js
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -6,6 +5,7 @@ import { getFirestore } from "firebase/firestore";
 let auth;
 let database;
 
+// Get data from server.js
 export const initializeFirebase = async () => {
   try {
     const response = await fetch("http://localhost:3001/api/firebase-config");

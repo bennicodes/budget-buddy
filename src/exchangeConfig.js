@@ -1,3 +1,4 @@
+// Get data from server.js
 export const convertCurrency = async (from, to, amount) => {
   const url = `http://localhost:3001/api/convert?from=${from}&to=${to}&amount=${amount}`;
 
