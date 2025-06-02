@@ -6,8 +6,6 @@
 
 This application showcases the use of modern frontend development techniques and is mainly build using react and firestore for storage of information and user authentication.
 
-Since I´m using a server.js to hide the API keys and sensitive information I had struggles with getting it to run as desired when deploying the app to netlify.
-
 ## Features
 
 - Add, track and manage personal expenses
@@ -37,6 +35,8 @@ Since I´m using a server.js to hide the API keys and sensitive information I ha
 
 - Netlify link:
   https://budgetbuddy-online.netlify.app/
+
+  Since I´m using a server.js to hide the API keys and sensitive information I had struggles with getting it to run as desired when deploying the app to netlify.
 
 ## License
 
