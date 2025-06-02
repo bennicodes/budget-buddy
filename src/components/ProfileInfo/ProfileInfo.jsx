@@ -21,7 +21,6 @@ const ProfileInfo = () => {
         const data = await useFetchUserData();
         setUserData(data);
       } catch (error) {
-        console.log("Error fetching user data:", error);
         setError("Failed to fetch user data.");
       } finally {
         setIsLoading(false);
@@ -57,7 +56,6 @@ const ProfileInfo = () => {
         "Verification email sent successfully! Please check your inbox."
       );
     } catch (error) {
-      console.error("Error sending verification email:", error);
       setMessage("Failed to send verification email. Please try again later.");
     } finally {
       setIsSendingVerification(false);

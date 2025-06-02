@@ -6,6 +6,7 @@ const CategoryPieChart = ({ expenses }) => {
   const [pieStyle, setPieStyle] = useState({});
   const [categoryData, setCategoryData] = useState([]);
 
+  // Handle no data scenario
   useEffect(() => {
     if (!expenses || expenses.length === 0) {
       setMessage("No data to display.");
@@ -16,7 +17,7 @@ const CategoryPieChart = ({ expenses }) => {
 
     setMessage(""); // Clear any previous message
 
-    // Count expenses by category
+    // Count number of expenses per category
     const categoryCounts = expenses.reduce((counts, expense) => {
       counts[expense.category] = (counts[expense.category] || 0) + 1;
       return counts;
@@ -25,7 +26,7 @@ const CategoryPieChart = ({ expenses }) => {
     const total = expenses.length;
     const categories = Object.entries(categoryCounts);
 
-    let currentAngle = 0;
+    let currentAngle = 0; //start angle for pie segments
     const colors = [
       "#ff6384",
       "#36a2eb",
@@ -41,7 +42,7 @@ const CategoryPieChart = ({ expenses }) => {
     categories.forEach(([category, count], index) => {
       const percentage = (count / total) * 100;
       const startAngle = currentAngle;
-      const endAngle = currentAngle + percentage * 3.6;
+      const endAngle = currentAngle + percentage * 3.6; // Convert to degrees
       currentAngle = endAngle;
 
       const color = colors[index % colors.length];

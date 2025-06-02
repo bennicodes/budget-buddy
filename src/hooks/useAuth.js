@@ -18,7 +18,6 @@ export const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [signUpErrors, setSignUpErrors] = useState(null);
   const [signInErrors, setSignInErrors] = useState(null);
-  const [changePasswordErrors, setChangePasswordErrors] = useState(null);
 
   // Sign Up
   const signUp = async (email, password) => {
@@ -106,7 +105,7 @@ export const useAuth = () => {
       ) {
         throw {
           code: error.code,
-          message: "Incorrect current password",
+          message: "Incorrect password",
         };
       } else {
         throw {

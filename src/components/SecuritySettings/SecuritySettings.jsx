@@ -15,7 +15,7 @@ const SecuritySettings = () => {
   const [success, setSuccess] = useState("");
 
   // Auth hook
-  const { user, changePassword, changePasswordErrors } = useAuth();
+  const { user, changePassword } = useAuth();
   // Validation hook
   const { validate, passwordErrors } = useChangePasswordValidation();
 
@@ -35,7 +35,7 @@ const SecuritySettings = () => {
       !newPassword.trim() ||
       !confirmPassword.trim()
     ) {
-      setErrors({ general: "Please fill in the field." });
+      setErrors({ general: "Please fill in the fields" });
       return;
     }
 
