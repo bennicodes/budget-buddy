@@ -1,6 +1,8 @@
 // Get data from server.js
+const BASE_URL = "https://server-budgetbuddy.up.railway.app";
+
 export const convertCurrency = async (from, to, amount) => {
-  const url = `http://localhost:3001/api/convert?from=${from}&to=${to}&amount=${amount}`;
+  const url = `${BASE_URL}/api/convert?from=${from}&to=${to}&amount=${amount}`;
 
   try {
     const response = await fetch(url);
@@ -13,7 +15,7 @@ export const convertCurrency = async (from, to, amount) => {
 };
 
 export const getCurrencySymbols = async () => {
-  const url = `http://localhost:3001/api/symbols`;
+  const url = `${BASE_URL}/api/symbols`;
   try {
     const response = await fetch(url);
     const data = await response.json();

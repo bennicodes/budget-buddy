@@ -2,13 +2,14 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+const BASE_URL = "https://server-budgetbuddy.up.railway.app";
 let auth;
 let database;
 
 // Get data from server.js
 export const initializeFirebase = async () => {
   try {
-    const response = await fetch("http://localhost:3001/api/firebase-config");
+    const response = await fetch(`${BASE_URL}/api/firebase-config`);
     const config = await response.json();
 
     const app = initializeApp(config);
